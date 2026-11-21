@@ -1,4 +1,4 @@
-"""Validation et statistiques du jeu de données AutoMind AI."""
+"""Validation et statistiques du jeu de données Findrive Assistant."""
 
 from __future__ import annotations
 
@@ -126,7 +126,7 @@ def summary_markdown(cars: list[dict], metadata: dict, errors: list[str]) -> str
     t = s["total"]
     status = "✅ Validation réussie — aucune erreur" if not errors else f"❌ {len(errors)} erreur(s)"
     lines = [
-        "# Résumé du jeu de données — AutoMind AI",
+        "# Résumé du jeu de données — Findrive Assistant",
         "",
         "> **Données synthétiques et fictives.** Les prix sont générés par un modèle simple"
         " (prix neuf fictif, décote annuelle, kilométrage, état) et **ne constituent pas une"

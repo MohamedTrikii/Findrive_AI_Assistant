@@ -1,4 +1,4 @@
-"""Génération reproductible d'annonces automobiles FICTIVES pour AutoMind AI.
+"""Génération reproductible d'annonces automobiles FICTIVES pour Findrive Assistant.
 
 Exemples :
     python -m automind.generate_cars                    # 200 annonces, graine 42
@@ -140,7 +140,7 @@ def generate_dataset(count: int = 200, seed: int = 42, include_fixtures: bool = 
 def build_document(cars: list[dict], seed: int) -> dict:
     return {
         "metadata": {
-            "name": "AutoMind AI — annonces synthétiques",
+            "name": "Findrive Assistant — annonces synthétiques",
             "synthetic": True,
             "disclaimer": "Données fictives générées automatiquement. Les prix ne sont pas des valeurs du marché.",
             "seed": seed,

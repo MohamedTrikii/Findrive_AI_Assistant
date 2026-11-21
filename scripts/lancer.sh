@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ==========================================================
-#  AutoMind AI - lancement du projet (macOS / Linux)
+#  Findrive Assistant - lancement du projet (macOS / Linux)
 #     ./scripts/lancer.sh          lance l'application
 #     ./scripts/lancer.sh tests    exécute les tests automatisés
 # ==========================================================
@@ -8,7 +8,7 @@ set -e
 cd "$(dirname "$0")/.."
 
 echo
-echo "  AutoMind AI - Assistant de recherche automobile"
+echo "  Findrive Assistant - Assistant de recherche automobile"
 echo "  ------------------------------------------------"
 echo
 

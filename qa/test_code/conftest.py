@@ -1,4 +1,4 @@
-"""Infrastructure commune de la campagne de tests AutoMind AI.
+"""Infrastructure commune de la campagne de tests Findrive Assistant.
 
 - Ajoute la racine du projet au sys.path (les modules testés sont ceux de l'application réelle).
 - Fournit le jeu de données RÉEL (cars.json) et un ORACLE indépendant : les résultats attendus

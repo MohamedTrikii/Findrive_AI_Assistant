@@ -1,4 +1,4 @@
-"""Composants visuels (HTML/CSS) de l'interface conversationnelle d'AutoMind AI.
+"""Composants visuels (HTML/CSS) de l'interface conversationnelle d'Findrive Assistant.
 
 Tout le contenu dynamique est échappé avec html.escape. Les chaînes HTML sont
 produites sur une seule ligne pour éviter que Markdown les interprète.
@@ -6,10 +6,16 @@ produites sur une seule ligne pour éviter que Markdown les interprète.
 
 from __future__ import annotations
 
+import base64
+from functools import lru_cache
 from html import escape
+from pathlib import Path
 from zlib import crc32
 
 from .chatbot import describe_criteria, format_int
+
+APP_NAME = "Findrive Assistant"
+LOGO_PATH = Path(__file__).parent / "assets" / "findrive_icon.png"
 
 CSS = """
 <style>
@@ -29,6 +35,8 @@ button:focus-visible{outline:2px solid var(--am-blue)!important;outline-offset:2
 /* ---------- barre supérieure */
 .am-top{display:flex;align-items:center;gap:12px;}
 .am-logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#1d4ed8,#0f1b2d);display:flex;align-items:center;justify-content:center;box-shadow:var(--am-shadow);flex:none;}
+.am-logo-img{background:#fff!important;overflow:hidden;padding:0;}
+.am-logo-img img{width:100%;height:100%;object-fit:cover;display:block;}
 .am-title{font-size:1.2rem;font-weight:750;color:var(--am-navy);line-height:1.1;}
 .am-title span{color:var(--am-blue);}
 .am-sub{font-size:.8rem;color:var(--am-muted);display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
@@ -458,9 +466,21 @@ def car_image_svg(car: dict, width: int = 160) -> str:
     return car_svg(car["categorie"], paint, width, f'Illustration {car["marque"]} {car["modele"]}')
 
 
+@lru_cache(maxsize=1)
+def logo_data_uri() -> str:
+    """Icône Findrive encodée en data URI (chaîne vide si le fichier est absent)."""
+    try:
+        return "data:image/png;base64," + base64.b64encode(LOGO_PATH.read_bytes()).decode("ascii")
+    except OSError:
+        return ""
+
+
 def top_bar_html() -> str:
-    return (f'<div class="am-top"><div class="am-logo">{ICON_CAR.format(w=23, h=23, c="#fff")}</div><div>'
-            '<div class="am-title">AutoMind <span>AI</span></div>'
+    uri = logo_data_uri()
+    logo = (f'<div class="am-logo am-logo-img"><img src="{uri}" alt="Logo {APP_NAME}"></div>' if uri
+            else f'<div class="am-logo">{ICON_CAR.format(w=23, h=23, c="#fff")}</div>')
+    return (f'<div class="am-top">{logo}<div>'
+            '<div class="am-title">Findrive <span>Assistant</span></div>'
             '<div class="am-sub"><span class="am-dot"></span>Assistant prêt · recherche automobile par conversation'
             '</div></div></div>')
 

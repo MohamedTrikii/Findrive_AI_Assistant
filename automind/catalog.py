@@ -1,4 +1,4 @@
-"""Référentiel de données AutoMind AI.
+"""Référentiel de données Findrive Assistant.
 
 Source unique pour les marques, modèles, villes, carburants, catégories,
 boîtes et états. Utilisé par le générateur, la validation et (indirectement,

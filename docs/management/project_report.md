@@ -1,4 +1,4 @@
-# Rapport de projet — AutoMind AI
+# Rapport de projet — Findrive Assistant
 
 *Assistant conversationnel de recherche automobile — séance de 120 minutes, équipe de 4.*
 
@@ -26,7 +26,7 @@ Construire une application de démonstration où un utilisateur décrit en fran�
 ## 3. WBS (organigramme des tâches)
 
 ```
-AutoMind AI
+Findrive Assistant
 ├── 1. Pilotage (M1)
 │   ├── 1.1 Cadrage du besoin (tous)                         P01
 │   ├── 1.2 WBS, backlog, affectations                       P02

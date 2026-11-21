@@ -1,4 +1,4 @@
-"""AutoMind AI — assistant conversationnel de recherche automobile (Streamlit).
+"""Findrive Assistant — assistant conversationnel de recherche automobile (Streamlit).
 
 Une seule page : la conversation. Les résultats (cartes véhicules), les critères,
 les suggestions et les fiches détaillées sont affichés DANS les messages de l'assistant.
@@ -54,7 +54,7 @@ WELCOME_SUGGESTIONS = [
 ASK_SORT = [("💰 Le prix", "privilégie le prix"), ("🛣️ Le kilométrage", "privilégie le kilométrage"),
             ("📅 L'année", "privilégie l'année")]
 
-st.set_page_config(page_title="AutoMind AI — Assistant automobile", page_icon="🚗", layout="wide",
+st.set_page_config(page_title=f"{ui.APP_NAME} — Assistant automobile", page_icon=str(ui.LOGO_PATH), layout="wide",
                    initial_sidebar_state="collapsed")
 
 
@@ -420,7 +420,8 @@ scroll_to_latest()
 # ------------------------------------------------------------------ barre latérale (secondaire)
 
 with st.sidebar:
-    st.markdown("### AutoMind AI")
+    st.image(str(ui.LOGO_PATH), width=96)
+    st.markdown(f"### {ui.APP_NAME}")
     st.button("Nouvelle conversation", on_click=on_new_conversation, use_container_width=True, key="side_new")
 
     with st.expander("Filtres manuels (optionnel)"):

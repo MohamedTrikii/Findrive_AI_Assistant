@@ -27,7 +27,7 @@ def test_UI01_launch_and_welcome_screen(page, evidence):
     exc = page.locator('[data-testid="stException"]').count()
     evidence.update(title=title, welcome=welcome, meta=meta, starter_buttons=starters, exceptions=exc,
                     console_errors=page.console_errors, screenshot=path)
-    assert "AutoMind" in title
+    assert "Findrive" in title
     assert welcome.startswith("Votre prochaine voiture")
     # innerText applique le text-transform CSS (majuscules sous Chrome/Linux) : comparaison sans casse
     assert "200 annonces" in " ".join(meta.lower().split()) and starters == 4 and exc == 0

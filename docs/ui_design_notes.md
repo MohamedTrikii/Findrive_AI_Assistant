@@ -1,4 +1,4 @@
-# Notes de conception UI — AutoMind AI
+# Notes de conception UI — Findrive Assistant
 
 ## Intention
 
@@ -6,7 +6,7 @@ Faire comprendre dès le premier écran qu'il s'agit d'un **assistant conversati
 
 ## Structure de la page (une seule colonne, 980 px max)
 
-1. **Barre supérieure** : logo, « AutoMind AI », pastille verte « Assistant prêt », bouton « ＋ Nouvelle conversation ».
+1. **Barre supérieure** : logo, « Findrive Assistant », pastille verte « Assistant prêt », bouton « ＋ Nouvelle conversation ».
 2. **Accueil** (conversation vide uniquement) : icône, titre « Votre prochaine voiture commence ici. », sous-titre, chiffres réels de la base, 4 cartes de suggestion en grille 2 × 2. Un clic envoie le message.
 3. **Conversation** : messages de l'utilisateur à droite (bulle bleue, avatar à droite), réponses de l'assistant à gauche (avatar voiture, sans bulle, pour laisser la place aux cartes).
 4. **Saisie fixée en bas** (`st.chat_input`) : multiligne, Entrée = envoyer, Maj + Entrée = nouvelle ligne, envoi vide impossible, ombre portée et anneau bleu au focus.

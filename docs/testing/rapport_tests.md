@@ -1,4 +1,4 @@
-# Rapport de tests — AutoMind AI (interface conversationnelle)
+# Rapport de tests — Findrive Assistant (interface conversationnelle)
 
 | | |
 |---|---|

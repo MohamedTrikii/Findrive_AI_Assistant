@@ -1,4 +1,4 @@
-"""AutoMind AI — moteur de recherche automobile conversationnel (analyse par règles, hors ligne)."""
+"""Findrive Assistant — moteur de recherche automobile conversationnel (analyse par règles, hors ligne)."""
 
 from pathlib import Path
 

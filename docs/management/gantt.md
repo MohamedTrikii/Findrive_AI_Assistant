@@ -1,4 +1,4 @@
-# Diagramme de Gantt — AutoMind AI (120 minutes)
+# Diagramme de Gantt — Findrive Assistant (120 minutes)
 
 Session unique de **120 minutes**, 4 membres. Les heures sont relatives (00:00 = début de séance).
 Source : [planning.csv](planning.csv).
@@ -7,7 +7,7 @@ Source : [planning.csv](planning.csv).
 
 ```mermaid
 gantt
-    title AutoMind AI — séance de 120 minutes
+    title Findrive Assistant — séance de 120 minutes
     dateFormat HH:mm
     axisFormat %H:%M
 

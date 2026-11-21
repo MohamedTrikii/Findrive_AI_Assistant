@@ -1,4 +1,4 @@
-"""Moteur conversationnel d'AutoMind AI.
+"""Moteur conversationnel d'Findrive Assistant.
 
 Analyse PAR RÈGLES (expressions régulières + vocabulaire extrait de la base).
 Aucun modèle de langage, aucune API externe, aucune donnée envoyée sur Internet.

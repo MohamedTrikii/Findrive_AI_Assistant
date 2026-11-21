@@ -25,6 +25,9 @@ Repository = "https://github.com/MohamedTrikii/AutoMind_AI_Assistant"
 [tool.setuptools]
 packages = ["automind"]
 
+[tool.setuptools.package-data]
+automind = ["assets/*.png"]
+
 # ------------------------------------------------------------------ tests
 [tool.pytest.ini_options]
 # `pytest` exécute la suite principale (tests/).

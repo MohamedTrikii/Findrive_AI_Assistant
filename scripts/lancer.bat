@@ -1,6 +1,6 @@
 @echo off
 rem ==========================================================
-rem  AutoMind AI - lancement du projet (Windows)
+rem  Findrive Assistant - lancement du projet (Windows)
 rem  Double-cliquez sur ce fichier, ou dans un terminal :
 rem     scripts\lancer.bat          lance l'application
 rem     scripts\lancer.bat tests    execute les tests automatises
@@ -10,7 +10,7 @@ setlocal
 cd /d "%~dp0.."
 
 echo.
-echo   AutoMind AI - Assistant de recherche automobile
+echo   Findrive Assistant - Assistant de recherche automobile
 echo   ------------------------------------------------
 echo.
 

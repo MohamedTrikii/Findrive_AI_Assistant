@@ -1,4 +1,4 @@
-# Résumé du jeu de données — AutoMind AI
+# Résumé du jeu de données — Findrive Assistant
 
 > **Données synthétiques et fictives.** Les prix sont générés par un modèle simple (prix neuf fictif, décote annuelle, kilométrage, état) et **ne constituent pas une cote du marché tunisien**.
 

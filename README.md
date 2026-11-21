@@ -1,6 +1,8 @@
 <div align="center">
 
-# 🚗 AutoMind AI
+<img src="docs/images/findrive_banner.png" alt="Findrive Assistant" width="640">
+
+# Findrive Assistant
 
 **Assistant conversationnel de recherche de voitures d'occasion, en français.**
 *Votre prochaine voiture, trouvée simplement.*
@@ -34,7 +36,7 @@
 
 ## Présentation
 
-AutoMind AI est une application web d'une seule page : l'utilisateur décrit la voiture qu'il cherche en langage naturel, l'assistant extrait les critères (ville, carburant, budget, kilométrage, année, marque…) et **affiche les véhicules correspondants directement dans la conversation**, sous forme de cartes.
+Findrive Assistant est une application web d'une seule page : l'utilisateur décrit la voiture qu'il cherche en langage naturel, l'assistant extrait les critères (ville, carburant, budget, kilométrage, année, marque…) et **affiche les véhicules correspondants directement dans la conversation**, sous forme de cartes.
 
 > « Je cherche une voiture diesel à Sfax » → « Budget maximum 40 000 dinars » → « Montre-moi des modèles plus récents »
 
