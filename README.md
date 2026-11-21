@@ -5,7 +5,7 @@
 **Assistant conversationnel de recherche de voitures d'occasion, en français.**
 *Votre prochaine voiture, trouvée simplement.*
 
-[![CI](https://github.com/MohamedTrikii/AutoMind_AI/actions/workflows/ci.yml/badge.svg)](https://github.com/MohamedTrikii/AutoMind_AI/actions/workflows/ci.yml)
+[![CI](https://github.com/MohamedTrikii/AutoMind_AI_Assistant/actions/workflows/ci.yml/badge.svg)](https://github.com/MohamedTrikii/AutoMind_AI_Assistant/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.10%20|%203.12%20|%203.13-3776AB?logo=python&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.42+-FF4B4B?logo=streamlit&logoColor=white)
 ![Tests](https://img.shields.io/badge/tests-250%2B-success)
@@ -91,8 +91,8 @@ Le moteur expose `process_message(message, criteres_precedents, voitures)`, qui 
 ### Avec Python
 
 ```bash
-git clone https://github.com/MohamedTrikii/AutoMind_AI.git
-cd AutoMind_AI
+git clone https://github.com/MohamedTrikii/AutoMind_AI_Assistant.git
+cd AutoMind_AI_Assistant
 python -m venv .venv && source .venv/bin/activate   # Windows : .venv\Scripts\activate
 pip install -r requirements.txt
 streamlit run app.py                                # http://localhost:8501
@@ -191,7 +191,7 @@ ruff check .                                    # lint
 ## Structure du dépôt
 
 ```
-AutoMind_AI/
+AutoMind_AI_Assistant/
 ├── app.py                  # Point d'entrée Streamlit : la page de conversation
 ├── automind/               # Package applicatif
 │   ├── chatbot.py          #   analyse par règles, intentions, dialogue multi-tours
