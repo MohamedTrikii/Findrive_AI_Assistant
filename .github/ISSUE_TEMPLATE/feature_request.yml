@@ -1,0 +1,22 @@
+name: ✨ Proposer une fonctionnalité
+description: Une idée d'amélioration pour Findrive Assistant
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: besoin
+    attributes:
+      label: Besoin
+      description: Quel problème cette fonctionnalité résout-elle ?
+    validations:
+      required: true
+  - type: textarea
+    id: proposition
+    attributes:
+      label: Solution proposée
+      description: Exemples de messages ou d'écrans attendus.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives envisagées
