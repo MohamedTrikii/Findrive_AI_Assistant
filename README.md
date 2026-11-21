@@ -105,15 +105,15 @@ Sous Windows, un double-clic sur [`scripts/lancer.bat`](scripts/lancer.bat) vér
 ### Avec Docker
 
 ```bash
-docker build -t automind-ai .
-docker run --rm -p 8501:8501 automind-ai
+docker build -t findrive-assistant .
+docker run --rm -p 8501:8501 findrive-assistant
 ```
 
 ### Régénérer le jeu de données
 
 ```bash
-python -m automind.generate_cars                                   # 200 annonces, graine 42
-python -m automind.generate_cars --count 300 --seed 7 --output cars_300.json --summary ""
+python -m findrive.generate_cars                                   # 200 annonces, graine 42
+python -m findrive.generate_cars --count 300 --seed 7 --output cars_300.json --summary ""
 ```
 
 | Option | Défaut | Rôle |
@@ -186,7 +186,7 @@ ruff check .                                    # lint
 | [`tests/`](tests/) | Analyse des messages, dialogue multi-tours, filtrage, validation du jeu de données, application Streamlit pilotée par `AppTest`, risques connus documentés en `xfail` |
 | [`qa/test_code/`](qa/test_code/) | Campagne QA de 70 cas (unitaires, fonctionnels, intégration, cas limites, régression, UI). Les résultats attendus sont calculés par un **oracle indépendant** du code testé ; les résultats obtenus sont enregistrés dans [`qa/results/`](qa/results/), avec captures avant / après correction |
 
-- Couverture du moteur (`automind/`, hors CSS) : **88 %**.
+- Couverture du moteur (`findrive/`, hors CSS) : **88 %**.
 - L'intégration continue lance le lint, la suite principale sur Python 3.10, 3.12 et 3.13, puis la campagne QA, et vérifie que `data/cars.json` est bien reproductible à partir de la graine 42.
 - Plan de test, résultats et rapport : [`docs/testing/`](docs/testing/).
 
@@ -195,7 +195,7 @@ ruff check .                                    # lint
 ```
 AutoMind_AI_Assistant/
 ├── app.py                  # Point d'entrée Streamlit : la page de conversation
-├── automind/               # Package applicatif
+├── findrive/               # Package applicatif
 │   ├── chatbot.py          #   analyse par règles, intentions, dialogue multi-tours
 │   ├── search.py           #   chargement, filtrage, tri, statistiques, suggestions
 │   ├── catalog.py          #   référentiel : marques, modèles, villes, carburants

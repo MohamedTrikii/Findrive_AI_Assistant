@@ -1,8 +1,8 @@
 """Génération reproductible d'annonces automobiles FICTIVES pour Findrive Assistant.
 
 Exemples :
-    python -m automind.generate_cars                    # 200 annonces, graine 42
-    python -m automind.generate_cars --count 300 --seed 7 --output cars_300.json
+    python -m findrive.generate_cars                    # 200 annonces, graine 42
+    python -m findrive.generate_cars --count 300 --seed 7 --output cars_300.json
 
 Les annonces de test de `test_fixtures.json` sont injectées en tête du fichier
 (elles comptent dans --count) afin que les scénarios de démonstration donnent

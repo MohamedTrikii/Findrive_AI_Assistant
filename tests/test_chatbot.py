@@ -9,8 +9,8 @@ from pathlib import Path
 
 import pytest
 
-from automind.chatbot import Vocabulary, describe_criteria, parse_message, process_message
-from automind.search import (
+from findrive.chatbot import Vocabulary, describe_criteria, parse_message, process_message
+from findrive.search import (
     REMOVAL_MESSAGES,
     SORT_OPTIONS,
     filter_cars,
@@ -459,7 +459,7 @@ def test_demande_complete_de_la_consigne():
 
 
 def test_description_naturelle():
-    from automind.chatbot import natural_description
+    from findrive.chatbot import natural_description
     assert natural_description({"carburant": "Diesel", "ville": "Sfax", "prix_max": 40000}, 6) == \
         "voitures diesel à Sfax jusqu'à 40 000 DT"
     assert natural_description({"boite": "Automatique", "categorie": "SUV"}, 2) == "SUV automatiques"
@@ -467,7 +467,7 @@ def test_description_naturelle():
 
 
 def test_comparaison_dans_la_fiche():
-    from automind.search import compare_to
+    from findrive.search import compare_to
     context = filter_cars(FIXTURES, {"ville": "Tunis"})
     car = next(c for c in FIXTURES if c["id"] == "FIX-005")  # 37 000 DT, le moins cher de Tunis
     lines = compare_to(car, context)

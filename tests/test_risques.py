@@ -15,8 +15,8 @@ from pathlib import Path
 
 import pytest
 
-from automind.chatbot import Vocabulary, describe_criteria, parse_message, process_message
-from automind.search import clean_records, filter_cars, search
+from findrive.chatbot import Vocabulary, describe_criteria, parse_message, process_message
+from findrive.search import clean_records, filter_cars, search
 
 FIXTURES = json.loads((Path(__file__).resolve().parent.parent / "data" / "test_fixtures.json").read_text(encoding="utf-8"))["cars"]
 VOCAB = Vocabulary.from_cars(FIXTURES)

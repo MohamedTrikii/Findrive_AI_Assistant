@@ -34,8 +34,8 @@ PORT = int(os.environ.get("AUTOMIND_TEST_PORT", "8611"))
 BASE_URL = f"http://localhost:{PORT}"
 WELCOME = ".am-hero, .am-welcome"  # écran d'accueil (nouvelle et ancienne mise en page)
 
-from automind.chatbot import Vocabulary, process_message  # noqa: E402
-from automind.search import filter_cars, load_dataset  # noqa: E402
+from findrive.chatbot import Vocabulary, process_message  # noqa: E402
+from findrive.search import filter_cars, load_dataset  # noqa: E402
 
 CARS, META = load_dataset(ROOT / "data" / "cars.json")
 VOCAB = Vocabulary.from_cars(CARS)

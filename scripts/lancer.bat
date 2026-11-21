@@ -42,7 +42,7 @@ echo [OK] Dependances presentes
 rem --- 3. Generer la base de donnees si elle est absente
 if not exist "data\cars.json" (
     echo [..] Generation de cars.json ^(200 annonces, graine 42^)...
-    %PY% -m automind.generate_cars --count 200 --seed 42
+    %PY% -m findrive.generate_cars --count 200 --seed 42
     if errorlevel 1 (
         echo [ERREUR] La generation ou la validation des donnees a echoue.
         goto :fin_erreur

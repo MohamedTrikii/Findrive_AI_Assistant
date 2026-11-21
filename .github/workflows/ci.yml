@@ -34,7 +34,7 @@ jobs:
       - run: pip install -r requirements-dev.txt
       - name: Jeu de données reproductible (graine 42)
         run: |
-          python -m automind.generate_cars --summary ""
+          python -m findrive.generate_cars --summary ""
           git diff --exit-code data/cars.json
       - name: Tests unitaires, fonctionnels et Streamlit AppTest
         run: pytest --cov --cov-report=term-missing

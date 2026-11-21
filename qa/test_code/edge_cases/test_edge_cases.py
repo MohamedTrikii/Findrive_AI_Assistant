@@ -13,10 +13,10 @@ import time
 from conftest import CARS, ROOT, WELCOME, ask, displayed_cards, oracle, public, send, shot, show_exchange
 from streamlit.testing.v1 import AppTest
 
-from automind.chatbot import Vocabulary, process_message
-from automind.search import filter_cars, sort_cars, suggest_followups, suggest_relaxations
+from findrive.chatbot import Vocabulary, process_message
+from findrive.search import filter_cars, sort_cars, suggest_followups, suggest_relaxations
 
-PACKAGE = "automind"
+PACKAGE = "findrive"
 
 
 def app_with_dataset(tmp_path, content):

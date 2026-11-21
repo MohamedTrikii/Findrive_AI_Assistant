@@ -13,7 +13,7 @@ from pathlib import Path
 
 from streamlit.testing.v1 import AppTest
 
-from automind.search import filter_cars, load_dataset, sort_cars
+from findrive.search import filter_cars, load_dataset, sort_cars
 
 HERE = Path(__file__).resolve().parent.parent
 APP = str(HERE / "app.py")

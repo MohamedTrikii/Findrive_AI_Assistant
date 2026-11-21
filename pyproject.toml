@@ -1,5 +1,5 @@
 [project]
-name = "automind-ai"
+name = "findrive-assistant"
 version = "1.0.0"
 description = "Assistant conversationnel de recherche de voitures d'occasion (Streamlit, analyse par règles, hors ligne)."
 readme = "README.md"
@@ -23,10 +23,10 @@ e2e = ["playwright>=1.45"]
 Repository = "https://github.com/MohamedTrikii/AutoMind_AI_Assistant"
 
 [tool.setuptools]
-packages = ["automind"]
+packages = ["findrive"]
 
 [tool.setuptools.package-data]
-automind = ["assets/*.png"]
+findrive = ["assets/*.png"]
 
 # ------------------------------------------------------------------ tests
 [tool.pytest.ini_options]
@@ -38,8 +38,8 @@ norecursedirs = [".*", "__pycache__", "qa", "docs"]
 addopts = "-ra"
 
 [tool.coverage.run]
-source = ["automind"]
-omit = ["automind/ui.py"]
+source = ["findrive"]
+omit = ["findrive/ui.py"]
 
 # ------------------------------------------------------------------ lint
 [tool.ruff]
@@ -52,4 +52,4 @@ select = ["E", "F", "W", "I", "B", "UP", "SIM"]
 ignore = ["E501", "SIM108", "B905"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["automind"]
+known-first-party = ["findrive"]

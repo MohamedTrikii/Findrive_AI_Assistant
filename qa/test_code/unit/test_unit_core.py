@@ -4,9 +4,9 @@ import copy
 
 from conftest import CARS, VOCAB, public
 
-from automind.chatbot import normalize, parse_message
-from automind.search import SORT_OPTIONS, filter_cars, matches, sort_cars
-from automind.validation import validate_cars
+from findrive.chatbot import normalize, parse_message
+from findrive.search import SORT_OPTIONS, filter_cars, matches, sort_cars
+from findrive.validation import validate_cars
 
 
 def extract(message):

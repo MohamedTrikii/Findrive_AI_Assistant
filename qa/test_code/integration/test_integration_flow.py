@@ -9,8 +9,8 @@ import json
 from conftest import BY_ID, CARS, ROOT, VOCAB, ask, displayed_cards, last_assistant, oracle, public, send, shot, show_exchange
 from streamlit.testing.v1 import AppTest
 
-from automind.chatbot import Vocabulary, parse_message, process_message
-from automind.search import dataset_stats, filter_cars, load_dataset, search, sort_cars, suggest_followups, suggest_relaxations
+from findrive.chatbot import Vocabulary, parse_message, process_message
+from findrive.search import dataset_stats, filter_cars, load_dataset, search, sort_cars, suggest_followups, suggest_relaxations
 
 APP = str(ROOT / "app.py")
 

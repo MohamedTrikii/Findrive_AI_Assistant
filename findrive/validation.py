@@ -132,11 +132,11 @@ def summary_markdown(cars: list[dict], metadata: dict, errors: list[str]) -> str
         " (prix neuf fictif, décote annuelle, kilométrage, état) et **ne constituent pas une"
         " cote du marché tunisien**.",
         "",
-        "Fichier généré automatiquement par `automind/generate_cars.py` — ne pas éditer à la main.",
+        "Fichier généré automatiquement par `findrive/generate_cars.py` — ne pas éditer à la main.",
         "",
         "## Génération",
         "",
-        f"- Commande : `python -m automind.generate_cars --count {metadata.get('count')} --seed {metadata.get('seed')}`",
+        f"- Commande : `python -m findrive.generate_cars --count {metadata.get('count')} --seed {metadata.get('seed')}`",
         f"- Graine aléatoire : `{metadata.get('seed')}` (même graine = même fichier)",
         f"- Année de référence : {metadata.get('reference_year')}",
         f"- Annonces : {t} dont {s['fixtures']} annonces de test fixes (`FIX-xxx`, issues de `data/test_fixtures.json`)",

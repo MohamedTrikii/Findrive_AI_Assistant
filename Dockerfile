@@ -10,7 +10,7 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 COPY .streamlit/ .streamlit/
-COPY automind/ automind/
+COPY findrive/ findrive/
 COPY data/ data/
 COPY app.py .
 

@@ -31,7 +31,7 @@ echo "[OK] Dépendances présentes"
 # 3. Générer la base si elle est absente
 if [ ! -f data/cars.json ]; then
   echo "[..] Génération de cars.json (200 annonces, graine 42)..."
-  $PY -m automind.generate_cars --count 200 --seed 42
+  $PY -m findrive.generate_cars --count 200 --seed 42
 fi
 echo "[OK] Base de données data/cars.json"
 

@@ -6,11 +6,11 @@ from pathlib import Path
 
 import pytest
 
-from automind.catalog import PREMIUM_BRANDS
-from automind.chatbot import Vocabulary, process_message
-from automind.generate_cars import build_document, generate_dataset, load_fixtures
-from automind.search import filter_cars, load_dataset
-from automind.validation import summarize, validate_cars
+from findrive.catalog import PREMIUM_BRANDS
+from findrive.chatbot import Vocabulary, process_message
+from findrive.generate_cars import build_document, generate_dataset, load_fixtures
+from findrive.search import filter_cars, load_dataset
+from findrive.validation import summarize, validate_cars
 
 HERE = Path(__file__).resolve().parent.parent
 DEMO_PROMPTS = [

@@ -2,11 +2,11 @@
 
 > **Données synthétiques et fictives.** Les prix sont générés par un modèle simple (prix neuf fictif, décote annuelle, kilométrage, état) et **ne constituent pas une cote du marché tunisien**.
 
-Fichier généré automatiquement par `automind/generate_cars.py` — ne pas éditer à la main.
+Fichier généré automatiquement par `findrive/generate_cars.py` — ne pas éditer à la main.
 
 ## Génération
 
-- Commande : `python -m automind.generate_cars --count 200 --seed 42`
+- Commande : `python -m findrive.generate_cars --count 200 --seed 42`
 - Graine aléatoire : `42` (même graine = même fichier)
 - Année de référence : 2026
 - Annonces : 200 dont 12 annonces de test fixes (`FIX-xxx`, issues de `data/test_fixtures.json`)

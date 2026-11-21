@@ -16,8 +16,8 @@ from pathlib import Path
 
 import streamlit as st
 
-from automind import ui
-from automind.chatbot import (
+from findrive import ui
+from findrive.chatbot import (
     CRITERIA_LABELS,
     YEAR_KEYS,
     Vocabulary,
@@ -25,7 +25,7 @@ from automind.chatbot import (
     format_value,
     process_message,
 )
-from automind.search import (
+from findrive.search import (
     DEFAULT_SORT,
     REMOVAL_MESSAGES,
     clean_records,
@@ -70,7 +70,7 @@ def get_data(path: str, mtime: float) -> tuple[list[dict], dict, str | None]:
                   f"(champ manquant ou invalide) ignorée{'s' if rejected > 1 else ''}.") if rejected else None
         return cars, meta, notice
     except FileNotFoundError:
-        from automind.generate_cars import build_document, generate_dataset
+        from findrive.generate_cars import build_document, generate_dataset
         doc = build_document(generate_dataset(200, 42), 42)
         return doc["cars"], doc["metadata"], "cars.json introuvable : base de démonstration générée en mémoire (graine 42)."
 
@@ -85,7 +85,7 @@ try:
     CARS, META, DATA_NOTICE = get_data(str(DATA_PATH), mtime)
     VOCAB = get_vocab(str(DATA_PATH), mtime)
 except (json.JSONDecodeError, KeyError, TypeError) as exc:
-    st.error(f"Impossible de lire cars.json ({exc}). Régénérez-le avec : python -m automind.generate_cars")
+    st.error(f"Impossible de lire cars.json ({exc}). Régénérez-le avec : python -m findrive.generate_cars")
     st.stop()
 CARS_BY_ID = {c["id"]: c for c in CARS}
 STATS = dataset_stats(CARS)
