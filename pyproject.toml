@@ -30,6 +30,7 @@ packages = ["automind"]
 # `pytest` exécute la suite principale (tests/).
 # Campagne QA complète (intégration, régression, navigateur) : pytest qa/test_code
 testpaths = ["tests"]
+pythonpath = ["."]
 norecursedirs = [".*", "__pycache__", "qa", "docs"]
 addopts = "-ra"
 
