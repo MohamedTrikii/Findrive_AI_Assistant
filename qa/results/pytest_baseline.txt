@@ -1,0 +1,602 @@
+...F...FF.F.....FFF...F....F.F..F.....F.F..F...FF...F.....FF..F..F....   [100%]
+================================== FAILURES ===================================
+__________________________ test_EC04_negative_price ___________________________
+
+page = <Page url='http://localhost:8611/'>
+evidence = {'test': 'testing/test_code/edge_cases/test_edge_cases.py::test_EC04_negative_price', 'intent': 'search', 'criteria': ...ces critères. On peut essayer d\'élargir la recherche.", result_count=0, replaced_previous=False, sort=None).criteria'}
+
+    def test_EC04_negative_price(page, evidence):
+        msg = "Voiture moins de -5000 DT"
+        turn, ids = ask(msg)
+        send(page, msg)
+        show_exchange(page)
+        path = shot(page, "edge_cases", "EC-04")
+        evidence.turn(turn, ids)
+        evidence.update(screenshot=path)
+>       assert turn.criteria.get("prix_max") != 5000, "le signe « - » ne doit pas être ignoré (‑5000 ≠ 5000)"
+E       AssertionError: le signe « - » ne doit pas être ignoré (‑5000 ≠ 5000)
+E       assert 5000 != 5000
+E        +  where 5000 = <built-in method get of dict object at 0x0000029707E7FE00>('prix_max')
+E        +    where <built-in method get of dict object at 0x0000029707E7FE00> = {'prix_max': 5000}.get
+E        +      where {'prix_max': 5000} = Turn(message='Voiture moins de -5000 DT', intent='search', criteria={'prix_max': 5000}, extracted={'prix_max': 5000}, ...xactement à ces critères. On peut essayer d'élargir la recherche.", result_count=0, replaced_previous=False, sort=None).criteria
+
+testing\test_code\edge_cases\test_edge_cases.py:89: AssertionError
+_________________________ test_EC08_unknown_fuel_type _________________________
+
+page = <Page url='http://localhost:8611/'>
+evidence = {'test': 'testing/test_code/edge_cases/test_edge_cases.py::test_EC08_unknown_fuel_type', 'intent': 'no_criteria', 'cri...False\n +  where False = any(<generator object test_EC08_unknown_fuel_type.<locals>.<genexpr> at 0x0000029707B0F1D0>)'}
+
+    def test_EC08_unknown_fuel_type(page, evidence):
+        msg = "voiture au GPL"
+        turn, ids = ask(msg)
+        send(page, msg)
+        show_exchange(page)
+        path = shot(page, "edge_cases", "EC-08")
+        evidence.turn(turn, ids)
+        evidence.update(screenshot=path)
+        assert "carburant" not in turn.criteria
+>       assert any("GPL" in w for w in turn.warnings), "le carburant inconnu doit être signalé, pas ignoré en silence"
+E       AssertionError: le carburant inconnu doit être signalé, pas ignoré en silence
+E       assert False
+E        +  where False = any(<generator object test_EC08_unknown_fuel_type.<locals>.<genexpr> at 0x0000029707B0F1D0>)
+
+testing\test_code\edge_cases\test_edge_cases.py:132: AssertionError
+______________________ test_EC09_contradictory_criteria _______________________
+
+evidence = {'test': 'testing/test_code/edge_cases/test_edge_cases.py::test_EC09_contradictory_criteria', 'intent': 'search', 'cri..., '...AM-0015', ...] == []\n  \n  Left contains 46 more items, first extra item: 'AM-0001'\n  Use -v to get more diff"}
+
+    def test_EC09_contradictory_criteria(evidence):
+        turn, ids = ask("voiture à plus de 50000 DT et moins de 30000 DT")
+        turn2, ids2 = ask("diesel électrique")
+        evidence.turn(turn, ids)
+        evidence.update(multi_fuel=(turn2.criteria, len(ids2)))
+>       assert ids == []
+E       AssertionError: assert ['AM-0001', '...AM-0015', ...] == []
+E         
+E         Left contains 46 more items, first extra item: 'AM-0001'
+E         Use -v to get more diff
+
+testing\test_code\edge_cases\test_edge_cases.py:140: AssertionError
+_________________________ test_EC11_malformed_records _________________________
+
+tmp_path = WindowsPath('C:/Users/lenovo/AppData/Local/Temp/pytest-of-lenovo/pytest-0/test_EC11_malformed_records0')
+evidence = {'test': 'testing/test_code/edge_cases/test_edge_cases.py::test_EC11_malformed_records', 'outcome': 'failed', 'error': "'chat_msg'"}
+
+    def test_EC11_malformed_records(tmp_path, evidence):
+        cars = copy.deepcopy(CARS[:30])
+        cars[0]["prix"] = None
+        del cars[1]["modele"]
+        cars[2]["kilometrage"] = "beaucoup"
+        cars[3] = "pas un objet"
+        del cars[4]["ville"]
+        errors = {}
+        for label, call in {
+            "filter": lambda: filter_cars(cars, {"prix_max": 40000}),
+            "sort": lambda: sort_cars([c for c in cars if isinstance(c, dict)]),
+            "vocab": lambda: Vocabulary.from_cars(cars),
+            "chat": lambda: process_message("Peugeot à Tunis moins de 40000 DT", {}, cars),
+        }.items():
+            try:
+                call()
+            except Exception as exc:  # noqa: BLE001
+                errors[label] = f"{type(exc).__name__}: {exc}"
+        at = app_with_dataset(tmp_path, {"metadata": {}, "cars": cars}).run()
+        if not at.exception:
+>           at.chat_input(key="chat_msg").set_value("moins de 40000 DT").run()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+testing\test_code\edge_cases\test_edge_cases.py:176: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WidgetList(), key = 'chat_msg'
+
+    def __call__(self, key: str) -> W_co:
+        for e in self._list:
+            if e.key == key:
+                return e
+    
+>       raise KeyError(key)
+E       KeyError: 'chat_msg'
+
+C:\Users\lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\streamlit\testing\v1\element_tree.py:263: KeyError
+---------------------------- Captured stderr call -----------------------------
+2026-11-21 10:34:24.300 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+__________________________ test_FT02_search_by_city ___________________________
+
+page = <Page url='http://localhost:8611/'>
+evidence = {'test': 'testing/test_code/functional/test_functional_scenarios.py::test_FT02_search_by_city', 'intent': 'search', 'c...rror': "assert ['Tunis', 'Tunis'] == ['Tunis']\n  \n  Left contains one more item: 'Tunis'\n  Use -v to get more diff"}
+
+    def test_FT02_search_by_city(page, evidence):
+        expected = oracle(ville="Tunis")
+        turn, ids, cards, bad, _ = run_scenario(page, evidence, "Voiture à Tunis", expected,
+                                                lambda c: c["ville"] == "Tunis", shot_name="FT-02")
+        assert public(turn.criteria) == {"ville": "Tunis"}
+        assert ids == expected
+        assert len(cards) == len(expected) and not bad
+>       assert chip_labels(page) == ["Tunis"]
+E       AssertionError: assert ['Tunis', 'Tunis'] == ['Tunis']
+E         
+E         Left contains one more item: 'Tunis'
+E         Use -v to get more diff
+
+testing\test_code\functional\test_functional_scenarios.py:62: AssertionError
+___________________ test_FT03_search_by_max_price_and_fuel ____________________
+
+page = <Page url='http://localhost:8611/'>
+evidence = {'test': 'testing/test_code/functional/test_functional_scenarios.py::test_FT03_search_by_max_price_and_fuel', 'intent'...18 diff: 'AM-0136' != 'AM-0153'\n  Left contains 2 more items, first extra item: 'FIX-002'\n  Use -v to get more diff"}
+
+    def test_FT03_search_by_max_price_and_fuel(page, evidence):
+        expected = oracle(carburant="Diesel", prix_lt=40000)
+        turn, ids, cards, bad, _ = run_scenario(page, evidence, "Voiture diesel moins de 40000 DT", expected,
+                                                lambda c: c["carburant"] == "Diesel" and c["prix"] < 40000,
+                                                shot_name="FT-03")
+        if cards:
+            worst = max(cards, key=lambda c: BY_ID[c["id"]]["prix"])
+            target = page.locator(f'[class*="st-key-card_"][class*="{worst["id"]}"]').first
+            evidence["max_displayed_price"] = BY_ID[worst["id"]]["prix"]
+            evidence["screenshot_validation"] = shot(page, "functional", "FT-03_validation", target)
+        assert turn.criteria.get("carburant") == "Diesel" and turn.criteria.get("prix_max") == 40000
+>       assert ids == expected
+E       AssertionError: assert ['AM-0001', '...AM-0024', ...] == ['AM-0001', '...AM-0024', ...]
+E         
+E         At index 18 diff: 'AM-0136' != 'AM-0153'
+E         Left contains 2 more items, first extra item: 'FIX-002'
+E         Use -v to get more diff
+
+testing\test_code\functional\test_functional_scenarios.py:76: AssertionError
+__________________________ test_FT04_multi_criteria ___________________________
+
+page = <Page url='http://localhost:8611/'>
+evidence = {'test': 'testing/test_code/functional/test_functional_scenarios.py::test_FT04_multi_criteria', 'intent': 'search', 'c...'FIX-008'] == ['AM-0101', '...1', 'FIX-002']\n  \n  Left contains one more item: 'FIX-008'\n  Use -v to get more diff"}
+
+    def test_FT04_multi_criteria(page, evidence):
+        msg = "Je cherche une voiture diesel à Tunis moins de 40000 DT avec moins de 100000 km."
+        expected = oracle(ville="Tunis", carburant="Diesel", prix_lt=40000, km_lt=100000)
+        turn, ids, cards, bad, _ = run_scenario(
+            page, evidence, msg, expected,
+            lambda c: c["ville"] == "Tunis" and c["carburant"] == "Diesel" and c["prix"] < 40000
+            and c["kilometrage"] < 100000, shot_name="FT-04_results")
+        assert public(turn.criteria) == {"ville": "Tunis", "carburant": "Diesel", "prix_max": 40000,
+                                         "kilometrage_max": 100000}
+>       assert ids == expected
+E       AssertionError: assert ['AM-0101', '...2', 'FIX-008'] == ['AM-0101', '...1', 'FIX-002']
+E         
+E         Left contains one more item: 'FIX-008'
+E         Use -v to get more diff
+
+testing\test_code\functional\test_functional_scenarios.py:89: AssertionError
+________________________ test_FT08_search_by_min_price ________________________
+
+page = <Page url='http://localhost:8611/'>
+evidence = {'test': 'testing/test_code/functional/test_functional_scenarios.py::test_FT08_search_by_min_price', 'intent': 'ambigu...pas pu transformer votre demande en critère précis.", result_count=None, replaced_previous=False, sort=None).criteria'}
+
+    def test_FT08_search_by_min_price(page, evidence):
+        expected = oracle(prix_gt=100000)
+        turn, ids, cards, bad, _ = run_scenario(page, evidence, "Une voiture à plus de 100000 DT", expected,
+                                                lambda c: c["prix"] > 100000, shot_name="FT-08")
+>       assert turn.criteria.get("prix_min") == 100000
+E       assert None == 100000
+E        +  where None = <built-in method get of dict object at 0x00000297082A0CC0>('prix_min')
+E        +    where <built-in method get of dict object at 0x00000297082A0CC0> = {}.get
+E        +      where {} = Turn(message='Une voiture à plus de 100000 DT', intent='ambiguous', criteria={}, extracted={}, added={}, changed={}, r...e="Je n'ai pas pu transformer votre demande en critère précis.", result_count=None, replaced_previous=False, sort=None).criteria
+
+testing\test_code\functional\test_functional_scenarios.py:125: AssertionError
+____________________ test_FT13_reset_conversation_criteria ____________________
+
+page = <Page url='http://localhost:8611/'>
+evidence = {'test': 'testing/test_code/functional/test_functional_scenarios.py::test_FT13_reset_conversation_criteria', 'intent':...as revenir\nassert ['Sfax', 'Sfax'] == ['Sfax']\n  \n  Left contains one more item: 'Sfax'\n  Use -v to get more diff"}
+
+    def test_FT13_reset_conversation_criteria(page, evidence):
+        send(page, "Peugeot diesel à Tunis")
+        turn, ids, cards, bad, text = run_scenario(page, evidence, "Nouvelle recherche", oracle(), lambda c: True,
+                                                   shot_name="FT-13", expand=False,
+                                                   previous={"marque": "Peugeot", "carburant": "Diesel", "ville": "Tunis"})
+        assert turn.intent == "reset" and turn.criteria == {}
+        assert "effacé tous les critères" in text
+        send(page, "à Sfax")
+>       assert chip_labels(page) == ["Sfax"], "après réinitialisation, l'ancien contexte ne doit pas revenir"
+E       AssertionError: après réinitialisation, l'ancien contexte ne doit pas revenir
+E       assert ['Sfax', 'Sfax'] == ['Sfax']
+E         
+E         Left contains one more item: 'Sfax'
+E         Use -v to get more diff
+
+testing\test_code\functional\test_functional_scenarios.py:184: AssertionError
+_____________________ test_IT02_criteria_to_search_engine _____________________
+
+evidence = {'test': 'testing/test_code/integration/test_integration_flow.py::test_IT02_criteria_to_search_engine', 'outcome': 'fa...002', ...] == ['AM-0001', '...1', 'FIX-002']\n  \n  Left contains one more item: 'FIX-008'\n  Use -v to get more diff"}
+
+    def test_IT02_criteria_to_search_engine(evidence):
+        cases = {
+            "voiture à Sfax": oracle(ville="Sfax"),
+            "Peugeot essence": oracle(marque="Peugeot", carburant="Essence"),
+            "diesel à Tunis moins de 40000 DT": oracle(ville="Tunis", carburant="Diesel", prix_lt=40000),
+            "Renault à Ariana maximum 45000 DT": oracle(marque="Renault", ville="Ariana", prix_le=45000),
+        }
+        got = {}
+        for msg, expected in cases.items():
+            turn, ids = ask(msg)
+            got[msg] = {"criteria": turn.criteria, "count": turn.result_count, "expected": len(expected)}
+>           assert ids == expected, msg
+E           AssertionError: diesel à Tunis moins de 40000 DT
+E           assert ['AM-0001', '...FIX-002', ...] == ['AM-0001', '...1', 'FIX-002']
+E             
+E             Left contains one more item: 'FIX-008'
+E             Use -v to get more diff
+
+testing\test_code\integration\test_integration_flow.py:49: AssertionError
+_____________________ test_IT05_multi_criteria_end_to_end _____________________
+
+page = <Page url='http://localhost:8611/'>
+evidence = {'test': 'testing/test_code/integration/test_integration_flow.py::test_IT05_multi_criteria_end_to_end', 'input': 'Je c...ert {'AM-0101', '...2', 'FIX-008'} <= {'AM-0101', '...1', 'FIX-002'}\n  \n  Extra items in the left set:\n  'FIX-008'"}
+
+    def test_IT05_multi_criteria_end_to_end(page, evidence):
+        msg = "Je cherche une voiture diesel à Tunis moins de 40000 DT avec moins de 100000 km."
+        send(page, msg)
+        expected = oracle(ville="Tunis", carburant="Diesel", prix_lt=40000, km_lt=100000)
+        cards = displayed_cards(page)
+        text = last_assistant(page).inner_text()
+        show_exchange(page)
+        path = shot(page, "integration", "IT-05")
+        violations = [c["id"] for c in cards if not (BY_ID[c["id"]]["ville"] == "Tunis" and
+                                                     BY_ID[c["id"]]["carburant"] == "Diesel" and
+                                                     BY_ID[c["id"]]["prix"] < 40000 and
+                                                     BY_ID[c["id"]]["kilometrage"] < 100000)]
+        evidence.update(input=msg, expected_ids=expected, displayed_ids=[c["id"] for c in cards],
+                        displayed=[f'{c["name"]} | {c["meta"]} | {c["price_text"]} | {c["specs"]}' for c in cards],
+                        violations=violations, response=text.split("\n")[2] if text.count("\n") > 2 else text,
+                        screenshot=path)
+>       assert set(c["id"] for c in cards) <= set(expected)
+E       AssertionError: assert {'AM-0101', '...2', 'FIX-008'} <= {'AM-0101', '...1', 'FIX-002'}
+E         
+E         Extra items in the left set:
+E         'FIX-008'
+
+testing\test_code\integration\test_integration_flow.py:107: AssertionError
+___________________________ test_RT03_price_filter ____________________________
+
+page = <Page url='http://localhost:8611/'>
+evidence = {'test': 'testing/test_code/regression/test_regression_suite.py::test_RT03_price_filter', 'intent': 'search', 'criteri... 4 diff: 'AM-0014' != 'AM-0015'\n  Left contains 3 more items, first extra item: 'AM-0169'\n  Use -v to get more diff"}
+
+    def test_RT03_price_filter(page, evidence):
+        strict, s_ids = ask("moins de 30000 DT")
+        incl, i_ids = ask("maximum 30000 DT")
+        cards, bad, path = ui_check(page, "moins de 30000 DT", "RT-03", lambda c: c["prix"] < 30000)
+        evidence.turn(strict, s_ids)
+        evidence.update(strict_count=len(s_ids), inclusive_count=len(i_ids), violations=bad, screenshot=path,
+                        at_30000=[i for i in i_ids if BY_ID[i]["prix"] == 30000])
+>       assert s_ids == oracle(prix_lt=30000)
+E       AssertionError: assert ['AM-0001', '...AM-0015', ...] == ['AM-0001', '...AM-0016', ...]
+E         
+E         At index 4 diff: 'AM-0014' != 'AM-0015'
+E         Left contains 3 more items, first extra item: 'AM-0169'
+E         Use -v to get more diff
+
+testing\test_code\regression\test_regression_suite.py:48: AssertionError
+__________________________ test_RT05_context_update ___________________________
+
+page = <Page url='http://localhost:8611/'>
+evidence = {'test': 'testing/test_code/regression/test_regression_suite.py::test_RT05_context_update', 'intent': 'follow_up', 'cr... 40\\u202f000 DT' != '40 000 DT'\n  Left contains 3 more items, first extra item: 'Diesel'\n  Use -v to get more diff"}
+
+    def test_RT05_context_update(page, evidence):
+        send(page, "Je cherche une voiture diesel")
+        send(page, "à Tunis seulement")
+        turn, ids = ask("maximum 40 000 DT", {"carburant": "Diesel", "ville": "Tunis"})
+        cards, bad, path = ui_check(page, "maximum 40 000 DT", "RT-05",
+                                    lambda c: c["carburant"] == "Diesel" and c["ville"] == "Tunis" and c["prix"] <= 40000)
+        chips = chip_labels(page)
+        evidence.turn(turn, ids)
+        evidence.update(chips=chips, violations=bad, screenshot=path)
+        assert public(turn.criteria) == {"carburant": "Diesel", "ville": "Tunis", "prix_max": 40000}
+        assert ids == oracle(carburant="Diesel", ville="Tunis", prix_le=40000) and not bad
+>       assert sorted(chips) == sorted(["Tunis", "Diesel", "40 000 DT"])
+E       AssertionError: assert ['Budget ≤ 40...nis', 'Tunis'] == ['40 000 DT',...sel', 'Tunis']
+E         
+E         At index 0 diff: 'Budget ≤ 40\u202f000 DT' != '40 000 DT'
+E         Left contains 3 more items, first extra item: 'Diesel'
+E         Use -v to get more diff
+
+testing\test_code\regression\test_regression_suite.py:74: AssertionError
+___________________ test_RT08_readme_conversation_scenario ____________________
+
+evidence = {'test': 'testing/test_code/regression/test_regression_suite.py::test_RT08_readme_conversation_scenario', 'steps': [('..., ''), ('Voir les détails', ''), ('Enlève le critère diesel.', '6'), ('Augmente le budget à 50 000 DT.', '10'), ...])"}
+
+    def test_RT08_readme_conversation_scenario(evidence):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        block = readme.split("Scénario conversationnel conseillé")[1].split("###")[0]
+        steps = re.findall(r"^\d\. `([^`]+)`(?:.*→\s*(\d+)(?:\s*résultats?)?\s*$)?", block, re.M)
+        ctx, log = {}, []
+        for msg, documented in steps:
+            turn, ids = ask(msg, ctx)
+            ctx = turn.criteria
+            log.append((msg, turn.intent, public(ctx), len(ids), int(documented) if documented else None))
+        evidence.update(steps=log)
+>       assert len(steps) == 6
+E       AssertionError: assert 7 == 6
+E        +  where 7 = len([('Je cherche une voiture diesel à Sfax.', ''), ('Budget maximum 40 000 dinars.', '3'), ('Montre-moi des modèles plus ...s.', ''), ('Voir les détails', ''), ('Enlève le critère diesel.', '6'), ('Augmente le budget à 50 000 DT.', '10'), ...])
+
+testing\test_code\regression\test_regression_suite.py:109: AssertionError
+________________ test_UI04_criteria_chips_display_and_removal _________________
+
+page = <Page url='http://localhost:8611/'>
+evidence = {'test': 'testing/test_code/ui/test_ui_browser.py::test_UI04_criteria_chips_display_and_removal', 'chips_before': ['Pe... 1 diff: 'Diesel' != 'Peugeot'\n  Left contains 3 more items, first extra item: 'Peugeot'\n  Use -v to get more diff)"}
+
+    def test_UI04_criteria_chips_display_and_removal(page, evidence):
+        send(page, "Peugeot diesel à Tunis")
+        before = chip_labels(page)
+        show_exchange(page)
+        path1 = shot(page, "ui", "UI-04_chips")
+        chip = page.locator('[class*="st-key-chips_live"] [data-testid="stButton"] button', has_text="Tunis").first
+        click(page, chip)
+        after = chip_labels(page)
+        user_text = page.locator('[data-testid="stChatMessage"]').nth(assistant_count(page) - 2).inner_text()
+        show_exchange(page)
+        path2 = shot(page, "ui", "UI-04_after_removal")
+        evidence.update(chips_before=before, chips_after=after, message_sent=user_text.strip()[:60],
+                        screenshot=path1, screenshot_after=path2)
+>       assert before == ["Peugeot", "Tunis", "Diesel"] or sorted(before) == sorted(["Peugeot", "Diesel", "Tunis"])
+E       AssertionError: assert (['Peugeot', '...nis', 'Tunis'] == ['Peugeot', 'Tunis', 'Diesel']
+E         
+E         At index 1 diff: 'Peugeot' != 'Tunis'
+E         Left contains 3 more items, first extra item: 'Diesel'
+E         Use -v to get more diff or ['Diesel', 'D...nis', 'Tunis'] == ['Diesel', 'Peugeot', 'Tunis']
+E         
+E         At index 1 diff: 'Diesel' != 'Peugeot'
+E         Left contains 3 more items, first extra item: 'Peugeot'
+E         Use -v to get more diff)
+
+testing\test_code\ui\test_ui_browser.py:69: AssertionError
+_______________________ test_UI05_no_result_empty_state _______________________
+
+page = <Page url='http://localhost:8611/'>
+evidence = {'test': 'testing/test_code/ui/test_ui_browser.py::test_UI05_no_result_empty_state', 'empty_state': 1, 'empty_text': '...<Frame name= url=\'http://localhost:8611/\'> selector=\'[data-testid="stChatMessage"] >> nth=-1 >> .am-empty\'>.count'}
+
+    def test_UI05_no_result_empty_state(page, evidence):
+        send(page, "BMW électrique à Mahdia moins de 20000 DT")
+        reply = last_assistant(page)
+        empty = reply.locator(".am-empty")
+        relax = reply.locator('[class*="st-key-relax_"] button')
+        labels = [relax.nth(i).inner_text() for i in range(relax.count())]
+        show_exchange(page)
+        path = shot(page, "ui", "UI-05")
+        evidence.update(empty_state=empty.count(), empty_text=empty.inner_text() if empty.count() else "",
+                        suggestions=labels, screenshot=path)
+>       assert empty.count() == 1 and labels
+E       assert (1 == 1 and [])
+E        +  where 1 = count()
+E        +    where count = <Locator frame=<Frame name= url='http://localhost:8611/'> selector='[data-testid="stChatMessage"] >> nth=-1 >> .am-empty'>.count
+
+testing\test_code\ui\test_ui_browser.py:84: AssertionError
+______________________ test_UI09_new_conversation_reset _______________________
+
+page = <Page url='http://localhost:8611/'>
+evidence = {'test': 'testing/test_code/ui/test_ui_browser.py::test_UI09_new_conversation_reset', 'outcome': 'failed', 'error': 'L... retrying click action\n      - waiting 100ms\n    57 × waiting for element to be visible, enabled and stable\n      '}
+
+    def test_UI09_new_conversation_reset(page, evidence):
+        send(page, "diesel à Sfax")
+        send(page, "moins de 50000 DT")
+        n_before = assistant_count(page)
+>       page.get_by_role("button", name="Nouvelle conversation").first.click()
+
+testing\test_code\ui\test_ui_browser.py:150: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\sync_api\_generated.py:17672: in click
+    self._sync(
+C:\Users\lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\_impl\_locator.py:163: in click
+    return await self._frame._click(self._selector, strict=True, **params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\_impl\_frame.py:591: in _click
+    await self._channel.send("click", self._timeout, locals_to_params(locals()))
+C:\Users\lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\_impl\_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <playwright._impl._connection.Connection object at 0x00000297070456A0>
+cb = <function Channel.send.<locals>.<lambda> at 0x0000029708274680>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
+E           Call log:
+E             - waiting for get_by_role("button", name="Nouvelle conversation").first
+E               - locator resolved to <button aria-label="" kind="secondary" data-testid="stBaseButton-secondary" class="st-emotion-cache-1opbsaq e7msn5c2">…</button>
+E             - attempting click action
+E               2 × waiting for element to be visible, enabled and stable
+E                 - element is visible, enabled and stable
+E                 - scrolling into view if needed
+E                 - done scrolling
+E                 - element is outside of the viewport
+E               - retrying click action
+E               - waiting 20ms
+E               2 × waiting for element to be visible, enabled and stable
+E                 - element is visible, enabled and stable
+E                 - scrolling into view if needed
+E                 - done scrolling
+E                 - element is outside of the viewport
+E               - retrying click action
+E                 - waiting 100ms
+E               57 × waiting for element to be visible, enabled and stable
+E                  - element is visible, enabled and stable
+E                  - scrolling into view if needed
+E                  - done scrolling
+E                  - element is outside of the viewport
+E                - retrying click action
+E                  - waiting 500ms
+
+C:\Users\lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\_impl\_connection.py:563: TimeoutError
+_____________________ test_UT03_extract_max_price_strict ______________________
+
+evidence = {'test': 'testing/test_code/unit/test_unit_core.py::test_UT03_extract_max_price_strict', 'input': 'moins de 40000 DT',...['T', 'U'] == ['U']\n  \n  At index 0 diff: 'T' != 'U'\n  Left contains one more item: 'U'\n  Use -v to get more diff"}
+
+    def test_UT03_extract_max_price_strict(evidence):
+        r = extract("moins de 40000 DT")
+        at_limit = filter_cars([car(prix=40000), car(id="U", prix=39999)], r.criteria)
+        evidence.update(input="moins de 40000 DT", extracted=r.criteria,
+                        car_at_40000_kept=any(c["id"] == "T" for c in at_limit))
+        assert r.criteria.get("prix_max") == 40000
+>       assert [c["id"] for c in at_limit] == ["U"], "« moins de 40000 » doit exclure une voiture à 40 000 DT"
+E       AssertionError: « moins de 40000 » doit exclure une voiture à 40 000 DT
+E       assert ['T', 'U'] == ['U']
+E         
+E         At index 0 diff: 'T' != 'U'
+E         Left contains one more item: 'U'
+E         Use -v to get more diff
+
+testing\test_code\unit\test_unit_core.py:47: AssertionError
+________________________ test_UT04_extract_max_mileage ________________________
+
+evidence = {'test': 'testing/test_code/unit/test_unit_core.py::test_UT04_extract_max_mileage', 'input': 'moins de 100000 km', 'ex...['T', 'U'] == ['U']\n  \n  At index 0 diff: 'T' != 'U'\n  Left contains one more item: 'U'\n  Use -v to get more diff"}
+
+    def test_UT04_extract_max_mileage(evidence):
+        r = extract("moins de 100000 km")
+        kept = [c["id"] for c in filter_cars([car(kilometrage=100000), car(id="U", kilometrage=99999)], r.criteria)]
+        evidence.update(input="moins de 100000 km", extracted=r.criteria, kept=kept)
+        assert r.criteria.get("kilometrage_max") == 100000
+        assert "prix_max" not in r.criteria
+>       assert kept == ["U"]
+E       AssertionError: assert ['T', 'U'] == ['U']
+E         
+E         At index 0 diff: 'T' != 'U'
+E         Left contains one more item: 'U'
+E         Use -v to get more diff
+
+testing\test_code\unit\test_unit_core.py:56: AssertionError
+_________________________ test_UT07_extract_min_price _________________________
+
+evidence = {'test': 'testing/test_code/unit/test_unit_core.py::test_UT07_extract_min_price', 'input': 'plus de 30000 DT', 'extrac...e, follow_up=False, help=False, unsupported=None, car_word=False, vague=False, removed_values={}, sort=None).criteria"}
+
+    def test_UT07_extract_min_price(evidence):
+        r = extract("plus de 30000 DT")
+        evidence.update(input="plus de 30000 DT", extracted=r.criteria, warnings=r.warnings)
+>       assert r.criteria.get("prix_min") == 30000
+E       AssertionError: assert None == 30000
+E        +  where None = <built-in method get of dict object at 0x00000297080AE400>('prix_min')
+E        +    where <built-in method get of dict object at 0x00000297080AE400> = {}.get
+E        +      where {} = ParseResult(criteria={}, removed=[], warnings=['Je ne gère que les maximums de prix (« 30000 DT » ignoré). Exemple : m...search=False, follow_up=False, help=False, unsupported=None, car_word=False, vague=False, removed_values={}, sort=None).criteria
+
+testing\test_code\unit\test_unit_core.py:79: AssertionError
+____________________ test_UT10_inclusive_maximum_phrasings ____________________
+
+evidence = {'test': 'testing/test_code/unit/test_unit_core.py::test_UT10_inclusive_maximum_phrasings', 'extracted': {'maximum 400... where False = all(<generator object test_UT10_inclusive_maximum_phrasings.<locals>.<genexpr> at 0x000002970959FAC0>)'}
+
+    def test_UT10_inclusive_maximum_phrasings(evidence):
+        forms = ["maximum 40000 DT", "jusqu'à 40000 DT", "au plus 40000 DT", "pas plus de 40000 DT",
+                 "budget 40000 DT", "prix inférieur ou égal à 40000 DT"]
+        got, kept = {}, {}
+        for f in forms:
+            crit = extract(f).criteria
+            got[f] = crit.get("prix_max")
+            kept[f] = bool(filter_cars([car(prix=40000)], crit)) if crit.get("prix_max") else None
+        evidence.update(extracted=got, car_at_40000_kept=kept)
+>       assert all(v == 40000 for v in got.values()), got
+E       AssertionError: {'au plus 40000 DT': 40000, 'budget 40000 DT': 40000, "jusqu'à 40000 DT": 40000, 'maximum 40000 DT': 40000, ...}
+E       assert False
+E        +  where False = all(<generator object test_UT10_inclusive_maximum_phrasings.<locals>.<genexpr> at 0x000002970959FAC0>)
+
+testing\test_code\unit\test_unit_core.py:108: AssertionError
+=================================== PASSES ====================================
+__________________________ test_EC10_missing_dataset __________________________
+---------------------------- Captured stderr call -----------------------------
+2026-11-21 10:34:23.727 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+___________________________ test_EC12_empty_dataset ___________________________
+---------------------------- Captured stderr call -----------------------------
+2026-11-21 10:34:24.444 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+__________________________ test_EC13_corrupted_json ___________________________
+---------------------------- Captured stderr call -----------------------------
+2026-11-21 10:34:24.953 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+____________________ test_IT01_chat_to_criteria_extraction ____________________
+---------------------------- Captured stderr call -----------------------------
+2026-11-21 10:35:52.749 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+___________________ test_IT06_context_kept_between_messages ___________________
+---------------------------- Captured stderr call -----------------------------
+2026-11-21 10:36:02.425 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+______________________ test_IT08_manual_filters_to_chat _______________________
+---------------------------- Captured stderr call -----------------------------
+2026-11-21 10:36:04.334 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+=========================== short test summary info ===========================
+PASSED testing/test_code/edge_cases/test_edge_cases.py::test_EC01_empty_message
+PASSED testing/test_code/edge_cases/test_edge_cases.py::test_EC02_unknown_city
+PASSED testing/test_code/edge_cases/test_edge_cases.py::test_EC03_price_zero
+PASSED testing/test_code/edge_cases/test_edge_cases.py::test_EC05_extremely_large_mileage
+PASSED testing/test_code/edge_cases/test_edge_cases.py::test_EC06_misspelled_words
+PASSED testing/test_code/edge_cases/test_edge_cases.py::test_EC07_unknown_brand
+PASSED testing/test_code/edge_cases/test_edge_cases.py::test_EC10_missing_dataset
+PASSED testing/test_code/edge_cases/test_edge_cases.py::test_EC12_empty_dataset
+PASSED testing/test_code/edge_cases/test_edge_cases.py::test_EC13_corrupted_json
+PASSED testing/test_code/edge_cases/test_edge_cases.py::test_EC14_repeated_messages
+PASSED testing/test_code/edge_cases/test_edge_cases.py::test_EC15_unexpected_language_and_long_input
+PASSED testing/test_code/functional/test_functional_scenarios.py::test_FT01_search_without_precise_criteria
+PASSED testing/test_code/functional/test_functional_scenarios.py::test_FT05_ambiguous_request
+PASSED testing/test_code/functional/test_functional_scenarios.py::test_FT06_search_by_brand
+PASSED testing/test_code/functional/test_functional_scenarios.py::test_FT07_search_by_model
+PASSED testing/test_code/functional/test_functional_scenarios.py::test_FT09_change_criterion_in_conversation
+PASSED testing/test_code/functional/test_functional_scenarios.py::test_FT10_remove_criterion
+PASSED testing/test_code/functional/test_functional_scenarios.py::test_FT11_no_matching_vehicle
+PASSED testing/test_code/functional/test_functional_scenarios.py::test_FT12_brand_fuel_city_price
+PASSED testing/test_code/integration/test_integration_flow.py::test_IT01_chat_to_criteria_extraction
+PASSED testing/test_code/integration/test_integration_flow.py::test_IT03_search_engine_and_dataset
+PASSED testing/test_code/integration/test_integration_flow.py::test_IT04_search_results_to_ui_cards
+PASSED testing/test_code/integration/test_integration_flow.py::test_IT06_context_kept_between_messages
+PASSED testing/test_code/integration/test_integration_flow.py::test_IT07_suggestions_match_real_search
+PASSED testing/test_code/integration/test_integration_flow.py::test_IT08_manual_filters_to_chat
+PASSED testing/test_code/regression/test_regression_suite.py::test_RT01_basic_search
+PASSED testing/test_code/regression/test_regression_suite.py::test_RT02_city_filter
+PASSED testing/test_code/regression/test_regression_suite.py::test_RT04_multi_criteria
+PASSED testing/test_code/regression/test_regression_suite.py::test_RT06_original_project_suite
+PASSED testing/test_code/regression/test_regression_suite.py::test_RT07_readme_demo_table_still_true
+PASSED testing/test_code/ui/test_ui_browser.py::test_UI01_launch_and_welcome_screen
+PASSED testing/test_code/ui/test_ui_browser.py::test_UI02_chat_input_and_user_message
+PASSED testing/test_code/ui/test_ui_browser.py::test_UI03_assistant_message_and_cards
+PASSED testing/test_code/ui/test_ui_browser.py::test_UI06_loading_indicator
+PASSED testing/test_code/ui/test_ui_browser.py::test_UI07_pagination_show_more
+PASSED testing/test_code/ui/test_ui_browser.py::test_UI08_detail_sheet_open_close
+PASSED testing/test_code/ui/test_ui_browser.py::test_UI10_multiple_searches_and_scroll
+PASSED testing/test_code/ui/test_ui_browser.py::test_UI11_responsive_mobile
+PASSED testing/test_code/ui/test_ui_browser.py::test_UI12_no_broken_images_or_errors
+PASSED testing/test_code/unit/test_unit_core.py::test_UT01_extract_city
+PASSED testing/test_code/unit/test_unit_core.py::test_UT02_extract_fuel_and_synonyms
+PASSED testing/test_code/unit/test_unit_core.py::test_UT05_extract_brand
+PASSED testing/test_code/unit/test_unit_core.py::test_UT06_extract_model_not_year
+PASSED testing/test_code/unit/test_unit_core.py::test_UT08_numeric_formats
+PASSED testing/test_code/unit/test_unit_core.py::test_UT09_normalization_case_accents
+PASSED testing/test_code/unit/test_unit_core.py::test_UT11_filter_function_boundaries
+PASSED testing/test_code/unit/test_unit_core.py::test_UT12_sorting_logic
+PASSED testing/test_code/unit/test_unit_core.py::test_UT13_dataset_validation
+PASSED testing/test_code/unit/test_unit_core.py::test_UT14_unknown_criteria_not_invented
+FAILED testing/test_code/edge_cases/test_edge_cases.py::test_EC04_negative_price
+FAILED testing/test_code/edge_cases/test_edge_cases.py::test_EC08_unknown_fuel_type
+FAILED testing/test_code/edge_cases/test_edge_cases.py::test_EC09_contradictory_criteria
+FAILED testing/test_code/edge_cases/test_edge_cases.py::test_EC11_malformed_records
+FAILED testing/test_code/functional/test_functional_scenarios.py::test_FT02_search_by_city
+FAILED testing/test_code/functional/test_functional_scenarios.py::test_FT03_search_by_max_price_and_fuel
+FAILED testing/test_code/functional/test_functional_scenarios.py::test_FT04_multi_criteria
+FAILED testing/test_code/functional/test_functional_scenarios.py::test_FT08_search_by_min_price
+FAILED testing/test_code/functional/test_functional_scenarios.py::test_FT13_reset_conversation_criteria
+FAILED testing/test_code/integration/test_integration_flow.py::test_IT02_criteria_to_search_engine
+FAILED testing/test_code/integration/test_integration_flow.py::test_IT05_multi_criteria_end_to_end
+FAILED testing/test_code/regression/test_regression_suite.py::test_RT03_price_filter
+FAILED testing/test_code/regression/test_regression_suite.py::test_RT05_context_update
+FAILED testing/test_code/regression/test_regression_suite.py::test_RT08_readme_conversation_scenario
+FAILED testing/test_code/ui/test_ui_browser.py::test_UI04_criteria_chips_display_and_removal
+FAILED testing/test_code/ui/test_ui_browser.py::test_UI05_no_result_empty_state
+FAILED testing/test_code/ui/test_ui_browser.py::test_UI09_new_conversation_reset
+FAILED testing/test_code/unit/test_unit_core.py::test_UT03_extract_max_price_strict
+FAILED testing/test_code/unit/test_unit_core.py::test_UT04_extract_max_mileage
+FAILED testing/test_code/unit/test_unit_core.py::test_UT07_extract_min_price
+FAILED testing/test_code/unit/test_unit_core.py::test_UT10_inclusive_maximum_phrasings
+21 failed, 49 passed in 282.91s (0:04:42)

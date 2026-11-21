@@ -1,0 +1,2 @@
+# Dépendances d'exécution (application Streamlit)
+streamlit>=1.42

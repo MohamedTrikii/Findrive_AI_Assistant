@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Environnements virtuels
+.venv/
+venv/
+env/
+
+# Outils
+.pytest_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Éditeurs / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Secrets Streamlit
+.streamlit/secrets.toml
+
+# Copie d'archive du code avant correction (campagne QA) : non versionnée
+qa/baseline_src/
+qa/results/*_refactor.json

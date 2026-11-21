@@ -1,0 +1,135 @@
+ID plan;Test;Statut;Durée (s);Résultat observé (consigné par le test);Date d'exécution
+U01;test_app.py::test_ecran_d_accueil_et_suggestion_cliquable;Réussi;1.702;;2026-11-21
+U02;test_app.py::test_resultats_dans_la_conversation_et_suivi;Réussi;1.386;;2026-11-21
+U03;test_app.py::test_tri_par_la_conversation;Réussi;1.459;;2026-11-21
+U04;test_app.py::test_question_de_relance_prix_km_annee;Réussi;1.366;;2026-11-21
+U05;test_app.py::test_fiche_detaillee_dans_la_conversation;Réussi;2.002;;2026-11-21
+U06;test_app.py::test_puces_de_criteres_cliquables;Réussi;1.366;;2026-11-21
+U07;test_app.py::test_aucun_resultat_et_pistes_d_elargissement;Réussi;1.341;;2026-11-21
+U08;test_app.py::test_afficher_plus_reste_dans_la_conversation;Réussi;0.782;;2026-11-21
+U09;test_app.py::test_nouvelle_conversation;Réussi;0.768;;2026-11-21
+U10;test_app.py::test_filtres_manuels_affichent_le_resultat_dans_le_chat;Réussi;0.793;;2026-11-21
+T01;test_chatbot.py::test_T01_recherche_par_ville;Réussi;0.003;criteria={'ville': 'Tunis'} ids=['FIX-001', 'FIX-002', 'FIX-005', 'FIX-006', 'FIX-007', 'FIX-008'];2026-11-21
+T02;test_chatbot.py::test_T02_carburant_et_prix_maximum;Réussi;0.003;criteria={'carburant': 'Diesel', 'prix_max': 40000} ids=['FIX-001', 'FIX-002', 'FIX-008'];2026-11-21
+T03;test_chatbot.py::test_T03_prix_maximum_seul;Réussi;0.003;criteria={'prix_max': 40000} ids=['FIX-001', 'FIX-002', 'FIX-004', 'FIX-005', 'FIX-008'];2026-11-21
+T04;test_chatbot.py::test_T04_criteres_combines;Réussi;0.003;criteria={'ville': 'Tunis', 'carburant': 'Diesel', 'prix_max': 40000, 'kilometrage_max': 100000} ids=['FIX-001', 'FIX-002', 'FIX-008'];2026-11-21
+T05;test_chatbot.py::test_T05_aucun_resultat;Réussi;0.003;"criteria={'ville': 'Sousse', 'carburant': 'Diesel', 'prix_max': 30000} ids=[] response=""J'ai bien compris votre recherche. Je n'ai trouvé aucune voiture correspondant exactement à ces critères. On peut essayer d'élargir la recherche.""";2026-11-21
+T06;test_chatbot.py::test_expressions_prix[moins de 40 000 DT];Réussi;0.003;;2026-11-21
+T06;test_chatbot.py::test_expressions_prix[inf\xe9rieure \xe0 40 000];Réussi;0.003;;2026-11-21
+T06;test_chatbot.py::test_expressions_prix[maximum 40 000];Réussi;0.002;;2026-11-21
+T06;test_chatbot.py::test_expressions_prix[budget de 40 000];Réussi;0.003;;2026-11-21
+T06;test_chatbot.py::test_expressions_prix[ne d\xe9passe pas 40 000];Réussi;0.003;;2026-11-21
+T06;test_chatbot.py::test_expressions_prix[jusqu'\xe0 40 000 dinars];Réussi;0.004;;2026-11-21
+T06;test_chatbot.py::test_expressions_prix[budget max 40k];Réussi;0.003;;2026-11-21
+T07;test_chatbot.py::test_expressions_kilometrage[moins de 100 000 km];Réussi;0.003;;2026-11-21
+T07;test_chatbot.py::test_expressions_kilometrage[maximum 100000 km];Réussi;0.003;;2026-11-21
+T07;test_chatbot.py::test_expressions_kilometrage[ne d\xe9passe pas 100 000 kilom\xe8tres];Réussi;0.004;;2026-11-21
+T07;test_chatbot.py::test_expressions_kilometrage[moins de 100k km];Réussi;0.003;;2026-11-21
+T08;test_chatbot.py::test_expressions_ville[\xe0 Tunis-Tunis];Réussi;0.003;;2026-11-21
+T08;test_chatbot.py::test_expressions_ville[sur Tunis-Tunis];Réussi;0.003;;2026-11-21
+T08;test_chatbot.py::test_expressions_ville[de Tunis-Tunis];Réussi;0.003;;2026-11-21
+T08;test_chatbot.py::test_expressions_ville[\xe0 Sfax-Sfax];Réussi;0.003;;2026-11-21
+T08;test_chatbot.py::test_expressions_ville[\xe0 Sousse-Sousse];Réussi;0.003;;2026-11-21
+T08;test_chatbot.py::test_expressions_ville[\xe0 Monastir-Monastir];Réussi;0.003;;2026-11-21
+T08;test_chatbot.py::test_expressions_ville[\xe0 Bizerte-Bizerte];Réussi;0.003;;2026-11-21
+T08;test_chatbot.py::test_expressions_ville[\xe0 Ariana-Ariana];Réussi;0.003;;2026-11-21
+T09;test_chatbot.py::test_expressions_carburant[diesel-Diesel];Réussi;0.003;;2026-11-21
+T09;test_chatbot.py::test_expressions_carburant[gasoil-Diesel];Réussi;0.003;;2026-11-21
+T09;test_chatbot.py::test_expressions_carburant[gazole-Diesel];Réussi;0.003;;2026-11-21
+T09;test_chatbot.py::test_expressions_carburant[essence-Essence];Réussi;0.003;;2026-11-21
+T09;test_chatbot.py::test_expressions_carburant[voiture \xe9lectrique-\xc9lectrique];Réussi;0.004;;2026-11-21
+T09;test_chatbot.py::test_expressions_carburant[hybride-Hybride];Réussi;0.003;;2026-11-21
+T10;test_chatbot.py::test_expressions_annee[de 2020-expected0];Réussi;0.003;;2026-11-21
+T10;test_chatbot.py::test_expressions_annee[ann\xe9e 2021-expected1];Réussi;0.003;;2026-11-21
+T10;test_chatbot.py::test_expressions_annee[mod\xe8le 2019-expected2];Réussi;0.003;;2026-11-21
+T10;test_chatbot.py::test_expressions_annee[apr\xe8s 2018-expected3];Réussi;0.003;;2026-11-21
+T10;test_chatbot.py::test_expressions_annee[depuis 2020-expected4];Réussi;0.003;;2026-11-21
+T10;test_chatbot.py::test_expressions_annee[avant 2022-expected5];Réussi;0.003;;2026-11-21
+T10;test_chatbot.py::test_expressions_annee[entre 2018 et 2021-expected6];Réussi;0.003;;2026-11-21
+T11;test_chatbot.py::test_marque_et_modele_issus_des_donnees;Réussi;0.005;;2026-11-21
+T12;test_chatbot.py::test_modele_2008_n_est_pas_une_annee;Réussi;0.004;;2026-11-21
+T13;test_chatbot.py::test_modele_inconnu_non_invente;Réussi;0.003;;2026-11-21
+Complémentaire;test_chatbot.py::test_toyota_apres_2020;Réussi;0.002;;2026-11-21
+T14;test_chatbot.py::test_suivi_ajoute_ville_au_carburant;Réussi;0.005;;2026-11-21
+T15;test_chatbot.py::test_suivi_ajoute_prix_a_la_marque;Réussi;0.005;;2026-11-21
+T16;test_chatbot.py::test_suivi_modifie_et_retire;Réussi;0.005;;2026-11-21
+T17;test_chatbot.py::test_reinitialisation[Nouvelle recherche];Réussi;0.003;;2026-11-21
+T17;test_chatbot.py::test_reinitialisation[R\xe9initialiser];Réussi;0.002;;2026-11-21
+T17;test_chatbot.py::test_reinitialisation[Oublie les crit\xe8res pr\xe9c\xe9dents];Réussi;0.003;;2026-11-21
+T17;test_chatbot.py::test_reinitialisation[Recommencer];Réussi;0.003;;2026-11-21
+Complémentaire;test_chatbot.py::test_reinitialisation_avec_nouveaux_criteres;Réussi;0.003;;2026-11-21
+T18;test_chatbot.py::test_terme_vague_devient_un_tri_sans_inventer_de_budget;Réussi;0.002;;2026-11-21
+R05;test_chatbot.py::test_demande_imprecise_reste_ambigue;Réussi;0.003;;2026-11-21
+T19;test_chatbot.py::test_aucun_critere_affiche_tout;Réussi;0.002;;2026-11-21
+T20;test_chatbot.py::test_demande_hors_perimetre;Réussi;0.002;;2026-11-21
+T20;test_chatbot.py::test_ville_inconnue_signalee_et_non_appliquee;Réussi;0.002;;2026-11-21
+Complémentaire;test_chatbot.py::test_montant_trop_faible_non_applique;Réussi;0.002;;2026-11-21
+Complémentaire;test_chatbot.py::test_structure_resultat;Réussi;0.003;;2026-11-21
+T21;test_chatbot.py::test_tri_ne_change_pas_les_resultats[Prix croissant];Réussi;0.001;;2026-11-21
+T21;test_chatbot.py::test_tri_ne_change_pas_les_resultats[Prix d\xe9croissant];Réussi;0.001;;2026-11-21
+T21;test_chatbot.py::test_tri_ne_change_pas_les_resultats[Kilom\xe9trage croissant];Réussi;0.002;;2026-11-21
+T21;test_chatbot.py::test_tri_ne_change_pas_les_resultats[Ann\xe9e la plus r\xe9cente];Réussi;0.002;;2026-11-21
+Complémentaire;test_chatbot.py::test_tri_prix_croissant;Réussi;0.001;;2026-11-21
+T22;test_chatbot.py::test_suggestions_non_appliquees;Réussi;0.009;;2026-11-21
+Complémentaire;test_chatbot.py::test_description_criteres;Réussi;0.001;;2026-11-21
+C01;test_chatbot.py::test_reponses_rapides_affinent_sans_vider;Réussi;0.007;Diesel uniquement → 3 | Moins de 40 000 DT → 4 | Depuis 2019 → 4 | Moins de 80 000 km → 3;2026-11-21
+C02;test_chatbot.py::test_reponses_rapides_ne_reproposent_pas_un_critere_actif;Réussi;0.001;;2026-11-21
+C02;test_chatbot.py::test_pas_de_reponse_rapide_sans_resultat;Réussi;0.001;;2026-11-21
+C03;test_chatbot.py::test_puce_retrait_retire_exactement_le_critere[ville];Réussi;0.003;;2026-11-21
+C03;test_chatbot.py::test_puce_retrait_retire_exactement_le_critere[carburant];Réussi;0.003;;2026-11-21
+C03;test_chatbot.py::test_puce_retrait_retire_exactement_le_critere[marque];Réussi;0.003;;2026-11-21
+C03;test_chatbot.py::test_puce_retrait_retire_exactement_le_critere[modele];Réussi;0.003;;2026-11-21
+C03;test_chatbot.py::test_puce_retrait_retire_exactement_le_critere[categorie];Réussi;0.003;;2026-11-21
+C03;test_chatbot.py::test_puce_retrait_retire_exactement_le_critere[boite];Réussi;0.004;;2026-11-21
+C03;test_chatbot.py::test_puce_retrait_retire_exactement_le_critere[prix_max];Réussi;0.003;;2026-11-21
+C03;test_chatbot.py::test_puce_retrait_retire_exactement_le_critere[kilometrage_max];Réussi;0.003;;2026-11-21
+C03;test_chatbot.py::test_puce_retrait_retire_exactement_le_critere[annee_min];Réussi;0.003;;2026-11-21
+C04;test_chatbot.py::test_reperes_meilleur_prix_km_annee;Réussi;0.001;;2026-11-21
+R01;test_chatbot.py::test_conversation_de_reference_de_la_consigne;Réussi;0.008;{'ville': 'Tunis', 'carburant': 'Diesel'} → {'ville': 'Tunis', 'carburant': 'Diesel', 'prix_max': 40000} → sort=Année la plus récente | D'accord, je limite la recherche à 40 000 DT. J'ai maintenant 3 voitures diesel à Tunis jusqu'à 40 000 DT.;2026-11-21
+R02;test_chatbot.py::test_contexte_conserve_par_defaut;Réussi;0.004;;2026-11-21
+R02;test_chatbot.py::test_nouvelle_recherche_explicite_repart_de_zero;Réussi;0.003;;2026-11-21
+R03;test_chatbot.py::test_plusieurs_marques;Réussi;0.003;criteria={'marque': ['Peugeot', 'Renault'], 'prix_max': 40000} ids=['FIX-001', 'FIX-002', 'FIX-008'];2026-11-21
+R03;test_chatbot.py::test_plusieurs_villes_et_carburants;Réussi;0.003;;2026-11-21
+R04;test_chatbot.py::test_enleve_une_valeur_d_un_critere_multiple;Réussi;0.003;;2026-11-21
+R04;test_chatbot.py::test_enleve_le_critere_diesel;Réussi;0.003;;2026-11-21
+R04;test_chatbot.py::test_enlever_un_critere_absent_est_signale;Réussi;0.003;;2026-11-21
+R05;test_chatbot.py::test_augmente_le_budget;Réussi;0.003;;2026-11-21
+R06;test_chatbot.py::test_preferences_d_ordre[Montre-moi des mod\xe8les plus r\xe9cents-Ann\xe9e la plus r\xe9cente];Réussi;0.003;;2026-11-21
+R06;test_chatbot.py::test_preferences_d_ordre[Montre-moi des voitures r\xe9centes-Ann\xe9e la plus r\xe9cente];Réussi;0.003;;2026-11-21
+R06;test_chatbot.py::test_preferences_d_ordre[Je veux quelque chose de moins cher-Prix croissant];Réussi;0.003;;2026-11-21
+R06;test_chatbot.py::test_preferences_d_ordre[Je cherche une voiture \xe9conomique-Prix croissant];Réussi;0.003;;2026-11-21
+R06;test_chatbot.py::test_preferences_d_ordre[les moins kilom\xe9tr\xe9es d'abord-Kilom\xe9trage croissant];Réussi;0.003;;2026-11-21
+R06;test_chatbot.py::test_preferences_d_ordre[privil\xe9gie le prix-Prix croissant];Réussi;0.003;;2026-11-21
+R06;test_chatbot.py::test_preferences_d_ordre[privil\xe9gie le kilom\xe9trage-Kilom\xe9trage croissant];Réussi;0.004;;2026-11-21
+R06;test_chatbot.py::test_preferences_d_ordre[privil\xe9gie l'ann\xe9e-Ann\xe9e la plus r\xe9cente];Réussi;0.003;;2026-11-21
+R06;test_chatbot.py::test_preferences_d_ordre[les plus ch\xe8res-Prix d\xe9croissant];Réussi;0.003;;2026-11-21
+R06;test_chatbot.py::test_tri_demande_avec_un_critere;Réussi;0.003;;2026-11-21
+R07;test_chatbot.py::test_demande_complete_de_la_consigne;Réussi;0.003;;2026-11-21
+R08;test_chatbot.py::test_description_naturelle;Réussi;0.001;;2026-11-21
+R09;test_chatbot.py::test_comparaison_dans_la_fiche;Réussi;0.001;;2026-11-21
+Complémentaire;test_data_validation.py::test_taille_minimale;Réussi;0.009;;2026-11-21
+D01;test_data_validation.py::test_generation_reproductible;Réussi;0.012;;2026-11-21
+Complémentaire;test_data_validation.py::test_fichier_cars_json_correspond_a_la_graine_par_defaut;Réussi;0.005;;2026-11-21
+D02;test_data_validation.py::test_validation_reussie;Réussi;0.003;;2026-11-21
+D02;test_data_validation.py::test_validation_cars_json;Réussi;0.005;;2026-11-21
+Complémentaire;test_data_validation.py::test_validation_fixtures;Réussi;0.002;;2026-11-21
+Complémentaire;test_data_validation.py::test_fixtures_incluses_dans_la_base;Réussi;0.002;;2026-11-21
+D03;test_data_validation.py::test_validation_detecte_les_erreurs[<lambda>-prix invalide];Réussi;0.001;;2026-11-21
+D03;test_data_validation.py::test_validation_detecte_les_erreurs[<lambda>-kilom\xe9trage invalide];Réussi;0.001;;2026-11-21
+D03;test_data_validation.py::test_validation_detecte_les_erreurs[<lambda>-marque inconnue];Réussi;0.001;;2026-11-21
+D03;test_data_validation.py::test_validation_detecte_les_erreurs[<lambda>-invalide pour Renault];Réussi;0.001;;2026-11-21
+D03;test_data_validation.py::test_validation_detecte_les_erreurs[<lambda>-ville inconnue];Réussi;0.001;;2026-11-21
+D03;test_data_validation.py::test_validation_detecte_les_erreurs[<lambda>-carburant inconnu];Réussi;0.001;;2026-11-21
+D03;test_data_validation.py::test_validation_detecte_les_erreurs[<lambda>-ann\xe9e invalide];Réussi;0.001;;2026-11-21
+D03;test_data_validation.py::test_validation_detecte_les_erreurs[<lambda>-champs manquants];Réussi;0.001;;2026-11-21
+D03;test_data_validation.py::test_validation_detecte_doublons;Réussi;0.001;;2026-11-21
+D04;test_data_validation.py::test_variete;Réussi;0.002;;2026-11-21
+D04;test_data_validation.py::test_plausibilite;Réussi;0.002;;2026-11-21
+D05;test_data_validation.py::test_prompts_de_demonstration_donnent_des_resultats[voiture \xe0 Tunis];Réussi;0.008;;2026-11-21
+D05;test_data_validation.py::test_prompts_de_demonstration_donnent_des_resultats[diesel moins de 40000 DT];Réussi;0.008;;2026-11-21
+D05;test_data_validation.py::test_prompts_de_demonstration_donnent_des_resultats[Peugeot \xe0 Sfax];Réussi;0.008;;2026-11-21
+D05;test_data_validation.py::test_prompts_de_demonstration_donnent_des_resultats[essence \xe0 Tunis moins de 45000 DT];Réussi;0.009;;2026-11-21
+D05;test_data_validation.py::test_prompts_de_demonstration_donnent_des_resultats[diesel \xe0 Tunis moins de 40000 DT et moins de 100000 km];Réussi;0.009;;2026-11-21
+D05;test_data_validation.py::test_prompts_de_demonstration_donnent_des_resultats[Toyota apr\xe8s 2020];Réussi;0.009;;2026-11-21
+D05;test_data_validation.py::test_prompts_de_demonstration_donnent_des_resultats[SUV de moins de 60 000 DT];Réussi;0.008;;2026-11-21
+D05;test_data_validation.py::test_prompts_de_demonstration_donnent_des_resultats[Peugeot essence \xe0 Sfax];Réussi;0.008;;2026-11-21

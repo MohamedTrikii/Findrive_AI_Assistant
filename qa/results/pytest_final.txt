@@ -1,0 +1,236 @@
+............................................F.......F.................   [100%]
+================================== FAILURES ===================================
+_____________________ test_UI01_launch_and_welcome_screen _____________________
+
+page = <Page url='http://localhost:8611/'>
+evidence = {'test': 'testing/test_code/ui/test_ui_browser.py::test_UI01_launch_and_welcome_screen', 'title': 'AutoMind AI — Assis...i/UI-01.png', 'outcome': 'failed', 'error': "assert ('200 annonces' in '200\\nANNONCES\\n17\\nMARQUES\\n10\\nVILLES')"}
+
+    def test_UI01_launch_and_welcome_screen(page, evidence):
+        path = shot(page, "ui", "UI-01")
+        title = page.title()
+        welcome = page.locator(WELCOME).locator("h1").inner_text()
+        meta = page.locator(".am-stats, .am-welcome-meta").first.inner_text()
+        starters = page.locator('[class*="st-key-welcome_cards"] button').count()
+        exc = page.locator('[data-testid="stException"]').count()
+        evidence.update(title=title, welcome=welcome, meta=meta, starter_buttons=starters, exceptions=exc,
+                        console_errors=page.console_errors, screenshot=path)
+        assert "AutoMind" in title
+        assert welcome.startswith("Votre prochaine voiture")
+>       assert "200 annonces" in meta and starters == 4 and exc == 0
+E       AssertionError: assert ('200 annonces' in '200\nANNONCES\n17\nMARQUES\n10\nVILLES')
+
+testing\test_code\ui\test_ui_browser.py:20: AssertionError
+______________________ test_UI09_new_conversation_reset _______________________
+
+page = <Page url='http://localhost:8611/'>
+evidence = {'test': 'testing/test_code/ui/test_ui_browser.py::test_UI09_new_conversation_reset', 'outcome': 'failed', 'error': 'L...stable\n    - scrolling into view if needed\n    - done scrolling\n    - <div data-testid="stToolbar" class="stAppToo'}
+
+    def test_UI09_new_conversation_reset(page, evidence):
+        send(page, "diesel à Sfax")
+        send(page, "moins de 50000 DT")
+        n_before = assistant_count(page)
+>       page.locator('[class*="st-key-new_conv"] button').first.click()
+
+testing\test_code\ui\test_ui_browser.py:150: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\sync_api\_generated.py:17672: in click
+    self._sync(
+C:\Users\lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\_impl\_locator.py:163: in click
+    return await self._frame._click(self._selector, strict=True, **params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\_impl\_frame.py:591: in _click
+    await self._channel.send("click", self._timeout, locals_to_params(locals()))
+C:\Users\lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\_impl\_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <playwright._impl._connection.Connection object at 0x000001A731E79D30>
+cb = <function Channel.send.<locals>.<lambda> at 0x000001A732BB18A0>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
+E           Call log:
+E             - waiting for locator("[class*=\"st-key-new_conv\"] button").first
+E               - locator resolved to <button aria-label="" kind="secondary" data-testid="stBaseButton-secondary" class="st-emotion-cache-1eoxce3 e7msn5c2">…</button>
+E             - attempting click action
+E               - waiting for element to be visible, enabled and stable
+E               - element is visible, enabled and stable
+E               - scrolling into view if needed
+E               - done scrolling
+E               - <div class="st-emotion-cache-1j22a0y e1yxiy6j4">…</div> from <header data-testid="stHeader" class="stAppHeader st-emotion-cache-kv6uaj e1yxiy6j1">…</header> subtree intercepts pointer events
+E             - retrying click action
+E               - waiting for element to be visible, enabled and stable
+E               - element is visible, enabled and stable
+E               - scrolling into view if needed
+E               - done scrolling
+E               - <div data-testid="stToolbar" class="stAppToolbar st-emotion-cache-14vh5up e1yxiy6j2">…</div> from <header data-testid="stHeader" class="stAppHeader st-emotion-cache-kv6uaj e1yxiy6j1">…</header> subtree intercepts pointer events
+E             - retrying click action
+E               - waiting 20ms
+E               - waiting for element to be visible, enabled and stable
+E               - element is visible, enabled and stable
+E               - scrolling into view if needed
+E               - done scrolling
+E               - <div data-testid="stToolbar" class="stAppToolbar st-emotion-cache-14vh5up e1yxiy6j2">…</div> from <header data-testid="stHeader" class="stAppHeader st-emotion-cache-kv6uaj e1yxiy6j1">…</header> subtree intercepts pointer events
+E             2 × retrying click action
+E                 - waiting 100ms
+E                 - waiting for element to be visible, enabled and stable
+E                 - element is visible, enabled and stable
+E                 - scrolling into view if needed
+E                 - done scrolling
+E                 - <div class="st-emotion-cache-1j22a0y e1yxiy6j4">…</div> from <header data-testid="stHeader" class="stAppHeader st-emotion-cache-kv6uaj e1yxiy6j1">…</header> subtree intercepts pointer events
+E             - retrying click action
+E               - waiting 500ms
+E               - waiting for element to be visible, enabled and stable
+E               - element is visible, enabled and stable
+E               - scrolling into view if needed
+E               - done scrolling
+E               - <div data-testid="stToolbar" class="stAppToolbar st-emotion-cache-14vh5up e1yxiy6j2">…</div> from <header data-testid="stHeader" class="stAppHeader st-emotion-cache-kv6uaj e1yxiy6j1">…</header> subtree intercepts pointer events
+E             3 × retrying click action
+E                 - waiting 500ms
+E                 - waiting for element to be visible, enabled and stable
+E                 - element is visible, enabled and stable
+E                 - scrolling into view if needed
+E                 - done scrolling
+E                 - <div class="st-emotion-cache-1j22a0y e1yxiy6j4">…</div> from <header data-testid="stHeader" class="stAppHeader st-emotion-cache-kv6uaj e1yxiy6j1">…</header> subtree intercepts pointer events
+E             13 × retrying click action
+E                  - waiting 500ms
+E                  - waiting for element to be visible, enabled and stable
+E                  - element is visible, enabled and stable
+E                  - scrolling into view if needed
+E                  - done scrolling
+E                  - <div data-testid="stToolbar" class="stAppToolbar st-emotion-cache-14vh5up e1yxiy6j2">…</div> from <header data-testid="stHeader" class="stAppHeader st-emotion-cache-kv6uaj e1yxiy6j1">…</header> subtree intercepts pointer events
+E                - retrying click action
+E                  - waiting 500ms
+E                  - waiting for element to be visible, enabled and stable
+E                  - element is visible, enabled and stable
+E                  - scrolling into view if needed
+E                  - done scrolling
+E                  - <div data-testid="stToolbar" class="stAppToolbar st-emotion-cache-14vh5up e1yxiy6j2">…</div> from <header data-testid="stHeader" class="stAppHeader st-emotion-cache-kv6uaj e1yxiy6j1">…</header> subtree intercepts pointer events
+E                - retrying click action
+E                  - waiting 500ms
+E                  - waiting for element to be visible, enabled and stable
+E                  - element is visible, enabled and stable
+E                  - scrolling into view if needed
+E                  - done scrolling
+E                  - <div class="st-emotion-cache-1j22a0y e1yxiy6j4">…</div> from <header data-testid="stHeader" class="stAppHeader st-emotion-cache-kv6uaj e1yxiy6j1">…</header> subtree intercepts pointer events
+E                - retrying click action
+E                  - waiting 500ms
+E                  - waiting for element to be visible, enabled and stable
+E                  - element is visible, enabled and stable
+E                  - scrolling into view if needed
+E                  - done scrolling
+E                  - <div class="st-emotion-cache-1j22a0y e1yxiy6j4">…</div> from <header data-testid="stHeader" class="stAppHeader st-emotion-cache-kv6uaj e1yxiy6j1">…</header> subtree intercepts pointer events
+E             - retrying click action
+E               - waiting 500ms
+
+C:\Users\lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\playwright\_impl\_connection.py:563: TimeoutError
+=================================== PASSES ====================================
+__________________________ test_EC10_missing_dataset __________________________
+---------------------------- Captured stderr call -----------------------------
+2026-11-21 10:56:21.864 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+_________________________ test_EC11_malformed_records _________________________
+---------------------------- Captured stderr call -----------------------------
+2026-11-21 10:56:22.825 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+___________________________ test_EC12_empty_dataset ___________________________
+---------------------------- Captured stderr call -----------------------------
+2026-11-21 10:56:23.625 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+__________________________ test_EC13_corrupted_json ___________________________
+---------------------------- Captured stderr call -----------------------------
+2026-11-21 10:56:24.397 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+____________________ test_IT01_chat_to_criteria_extraction ____________________
+---------------------------- Captured stderr call -----------------------------
+2026-11-21 10:58:20.599 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+___________________ test_IT06_context_kept_between_messages ___________________
+---------------------------- Captured stderr call -----------------------------
+2026-11-21 10:58:32.287 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+______________________ test_IT08_manual_filters_to_chat _______________________
+---------------------------- Captured stderr call -----------------------------
+2026-11-21 10:58:35.176 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+=========================== short test summary info ===========================
+PASSED testing/test_code/edge_cases/test_edge_cases.py::test_EC01_empty_message
+PASSED testing/test_code/edge_cases/test_edge_cases.py::test_EC02_unknown_city
+PASSED testing/test_code/edge_cases/test_edge_cases.py::test_EC03_price_zero
+PASSED testing/test_code/edge_cases/test_edge_cases.py::test_EC04_negative_price
+PASSED testing/test_code/edge_cases/test_edge_cases.py::test_EC05_extremely_large_mileage
+PASSED testing/test_code/edge_cases/test_edge_cases.py::test_EC06_misspelled_words
+PASSED testing/test_code/edge_cases/test_edge_cases.py::test_EC07_unknown_brand
+PASSED testing/test_code/edge_cases/test_edge_cases.py::test_EC08_unknown_fuel_type
+PASSED testing/test_code/edge_cases/test_edge_cases.py::test_EC09_contradictory_criteria
+PASSED testing/test_code/edge_cases/test_edge_cases.py::test_EC10_missing_dataset
+PASSED testing/test_code/edge_cases/test_edge_cases.py::test_EC11_malformed_records
+PASSED testing/test_code/edge_cases/test_edge_cases.py::test_EC12_empty_dataset
+PASSED testing/test_code/edge_cases/test_edge_cases.py::test_EC13_corrupted_json
+PASSED testing/test_code/edge_cases/test_edge_cases.py::test_EC14_repeated_messages
+PASSED testing/test_code/edge_cases/test_edge_cases.py::test_EC15_unexpected_language_and_long_input
+PASSED testing/test_code/functional/test_functional_scenarios.py::test_FT01_search_without_precise_criteria
+PASSED testing/test_code/functional/test_functional_scenarios.py::test_FT02_search_by_city
+PASSED testing/test_code/functional/test_functional_scenarios.py::test_FT03_search_by_max_price_and_fuel
+PASSED testing/test_code/functional/test_functional_scenarios.py::test_FT04_multi_criteria
+PASSED testing/test_code/functional/test_functional_scenarios.py::test_FT05_ambiguous_request
+PASSED testing/test_code/functional/test_functional_scenarios.py::test_FT06_search_by_brand
+PASSED testing/test_code/functional/test_functional_scenarios.py::test_FT07_search_by_model
+PASSED testing/test_code/functional/test_functional_scenarios.py::test_FT08_search_by_min_price
+PASSED testing/test_code/functional/test_functional_scenarios.py::test_FT09_change_criterion_in_conversation
+PASSED testing/test_code/functional/test_functional_scenarios.py::test_FT10_remove_criterion
+PASSED testing/test_code/functional/test_functional_scenarios.py::test_FT11_no_matching_vehicle
+PASSED testing/test_code/functional/test_functional_scenarios.py::test_FT12_brand_fuel_city_price
+PASSED testing/test_code/functional/test_functional_scenarios.py::test_FT13_reset_conversation_criteria
+PASSED testing/test_code/integration/test_integration_flow.py::test_IT01_chat_to_criteria_extraction
+PASSED testing/test_code/integration/test_integration_flow.py::test_IT02_criteria_to_search_engine
+PASSED testing/test_code/integration/test_integration_flow.py::test_IT03_search_engine_and_dataset
+PASSED testing/test_code/integration/test_integration_flow.py::test_IT04_search_results_to_ui_cards
+PASSED testing/test_code/integration/test_integration_flow.py::test_IT05_multi_criteria_end_to_end
+PASSED testing/test_code/integration/test_integration_flow.py::test_IT06_context_kept_between_messages
+PASSED testing/test_code/integration/test_integration_flow.py::test_IT07_suggestions_match_real_search
+PASSED testing/test_code/integration/test_integration_flow.py::test_IT08_manual_filters_to_chat
+PASSED testing/test_code/regression/test_regression_suite.py::test_RT01_basic_search
+PASSED testing/test_code/regression/test_regression_suite.py::test_RT02_city_filter
+PASSED testing/test_code/regression/test_regression_suite.py::test_RT03_price_filter
+PASSED testing/test_code/regression/test_regression_suite.py::test_RT04_multi_criteria
+PASSED testing/test_code/regression/test_regression_suite.py::test_RT05_context_update
+PASSED testing/test_code/regression/test_regression_suite.py::test_RT06_original_project_suite
+PASSED testing/test_code/regression/test_regression_suite.py::test_RT07_readme_demo_table_still_true
+PASSED testing/test_code/regression/test_regression_suite.py::test_RT08_readme_conversation_scenario
+PASSED testing/test_code/ui/test_ui_browser.py::test_UI02_chat_input_and_user_message
+PASSED testing/test_code/ui/test_ui_browser.py::test_UI03_assistant_message_and_cards
+PASSED testing/test_code/ui/test_ui_browser.py::test_UI04_criteria_chips_display_and_removal
+PASSED testing/test_code/ui/test_ui_browser.py::test_UI05_no_result_empty_state
+PASSED testing/test_code/ui/test_ui_browser.py::test_UI06_loading_indicator
+PASSED testing/test_code/ui/test_ui_browser.py::test_UI07_pagination_show_more
+PASSED testing/test_code/ui/test_ui_browser.py::test_UI08_detail_sheet_open_close
+PASSED testing/test_code/ui/test_ui_browser.py::test_UI10_multiple_searches_and_scroll
+PASSED testing/test_code/ui/test_ui_browser.py::test_UI11_responsive_mobile
+PASSED testing/test_code/ui/test_ui_browser.py::test_UI12_no_broken_images_or_errors
+PASSED testing/test_code/unit/test_unit_core.py::test_UT01_extract_city
+PASSED testing/test_code/unit/test_unit_core.py::test_UT02_extract_fuel_and_synonyms
+PASSED testing/test_code/unit/test_unit_core.py::test_UT03_extract_max_price_strict
+PASSED testing/test_code/unit/test_unit_core.py::test_UT04_extract_max_mileage
+PASSED testing/test_code/unit/test_unit_core.py::test_UT05_extract_brand
+PASSED testing/test_code/unit/test_unit_core.py::test_UT06_extract_model_not_year
+PASSED testing/test_code/unit/test_unit_core.py::test_UT07_extract_min_price
+PASSED testing/test_code/unit/test_unit_core.py::test_UT08_numeric_formats
+PASSED testing/test_code/unit/test_unit_core.py::test_UT09_normalization_case_accents
+PASSED testing/test_code/unit/test_unit_core.py::test_UT10_inclusive_maximum_phrasings
+PASSED testing/test_code/unit/test_unit_core.py::test_UT11_filter_function_boundaries
+PASSED testing/test_code/unit/test_unit_core.py::test_UT12_sorting_logic
+PASSED testing/test_code/unit/test_unit_core.py::test_UT13_dataset_validation
+PASSED testing/test_code/unit/test_unit_core.py::test_UT14_unknown_criteria_not_invented
+FAILED testing/test_code/ui/test_ui_browser.py::test_UI01_launch_and_welcome_screen
+FAILED testing/test_code/ui/test_ui_browser.py::test_UI09_new_conversation_reset
+2 failed, 68 passed in 319.86s (0:05:19)

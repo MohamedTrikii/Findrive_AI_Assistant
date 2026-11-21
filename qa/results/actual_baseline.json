@@ -1,0 +1,1424 @@
+{
+ "EC-01": {
+  "test": "testing/test_code/edge_cases/test_edge_cases.py::test_EC01_empty_message",
+  "engine_empty": [
+   "no_criteria",
+   {},
+   "Écrivez votre recherche, par exemple : Peugeot diesel à Tunis."
+  ],
+  "engine_blank": {},
+  "ui_messages_before": 0,
+  "ui_messages_after": 0,
+  "welcome_still_visible": true,
+  "screenshot": "screenshots/edge_cases/EC-01_before.png",
+  "outcome": "passed"
+ },
+ "EC-02": {
+  "test": "testing/test_code/edge_cases/test_edge_cases.py::test_EC02_unknown_city",
+  "intent": "ambiguous",
+  "criteria": {},
+  "warnings": [
+   "Aucune annonce n'est disponible à « Paris » dans la base : critère ignoré."
+  ],
+  "response": "Je n'ai pas pu transformer votre demande en critère précis.",
+  "result_count": 200,
+  "sample": [
+   "AM-0001 Citroën C3 Tunis Diesel 29000 DT 130500 km",
+   "AM-0002 Renault Zoe Bizerte Électrique 54500 DT 72000 km",
+   "AM-0003 Peugeot 301 Gabès Diesel 25000 DT 190500 km",
+   "AM-0004 Citroën C3 Monastir Diesel 35000 DT 49500 km"
+  ],
+  "tozeur": [
+   {},
+   [
+    "Aucune annonce n'est disponible à « Tozeur » dans la base : critère ignoré."
+   ]
+  ],
+  "atlantis": [
+   {},
+   [
+    "Je ne connais pas la ville « Atlantis » : critère ignoré. Villes disponibles : Ariana, Bizerte, Gabès, Kairouan, Mahdia, Monastir, Nabeul, Sfax, Sousse, Tunis."
+   ]
+  ],
+  "ui_cards": 0,
+  "screenshot": "screenshots/edge_cases/EC-02_before.png",
+  "outcome": "passed"
+ },
+ "EC-03": {
+  "test": "testing/test_code/edge_cases/test_edge_cases.py::test_EC03_price_zero",
+  "intent": "ambiguous",
+  "criteria": {},
+  "warnings": [
+   "« 0 DT » semble trop faible pour un prix de voiture : critère ignoré. Vouliez-vous dire 0 DT ?"
+  ],
+  "response": "Je n'ai pas pu transformer votre demande en critère précis.",
+  "result_count": 200,
+  "sample": [
+   "AM-0001 Citroën C3 Tunis Diesel 29000 DT 130500 km",
+   "AM-0002 Renault Zoe Bizerte Électrique 54500 DT 72000 km",
+   "AM-0003 Peugeot 301 Gabès Diesel 25000 DT 190500 km",
+   "AM-0004 Citroën C3 Monastir Diesel 35000 DT 49500 km"
+  ],
+  "with_context": [
+   "ambiguous",
+   {
+    "ville": "Tunis"
+   },
+   [
+    "« 0 DT » semble trop faible pour un prix de voiture : critère ignoré. Vouliez-vous dire 0 DT ?"
+   ]
+  ],
+  "outcome": "passed"
+ },
+ "EC-04": {
+  "test": "testing/test_code/edge_cases/test_edge_cases.py::test_EC04_negative_price",
+  "intent": "search",
+  "criteria": {
+   "prix_max": 5000
+  },
+  "warnings": [],
+  "response": "J'ai bien compris votre recherche. Je n'ai trouvé aucune voiture correspondant exactement à ces critères. On peut essayer d'élargir la recherche.",
+  "result_count": 0,
+  "sample": [],
+  "screenshot": "screenshots/edge_cases/EC-04_before.png",
+  "outcome": "failed",
+  "error": "le signe « - » ne doit pas être ignoré (‑5000 ≠ 5000)\nassert 5000 != 5000\n +  where 5000 = <built-in method get of dict object at 0x0000029707E7FE00>('prix_max')\n +    where <built-in method get of dict object at 0x0000029707E7FE00> = {'prix_max': 5000}.get\n +      where {'prix_max': 5000} = Turn(message='Voiture moins de -5000 DT', intent='search', criteria={'prix_max': 5000}, extracted={'prix_max': 5000}, ...xactement à ces critères. On peut essayer d'élargir la recherche.\", result_count=0, replaced_previous=False, sort=None).criteria"
+ },
+ "EC-05": {
+  "test": "testing/test_code/edge_cases/test_edge_cases.py::test_EC05_extremely_large_mileage",
+  "intent": "search",
+  "criteria": {
+   "kilometrage_max": 999999999999
+  },
+  "warnings": [],
+  "response": "Parfait ! J'ai compris votre recherche. J'ai trouvé 200 voitures avec 999 999 999 999 km maximum.",
+  "result_count": 200,
+  "sample": [
+   "AM-0001 Citroën C3 Tunis Diesel 29000 DT 130500 km",
+   "AM-0002 Renault Zoe Bizerte Électrique 54500 DT 72000 km",
+   "AM-0003 Peugeot 301 Gabès Diesel 25000 DT 190500 km",
+   "AM-0004 Citroën C3 Monastir Diesel 35000 DT 49500 km"
+  ],
+  "huge_price": [
+   {
+    "prix_max": 100000000000000000620008645040778319495168
+   },
+   200
+  ],
+  "outcome": "passed"
+ },
+ "EC-06": {
+  "test": "testing/test_code/edge_cases/test_edge_cases.py::test_EC06_misspelled_words",
+  "extracted": {
+   "Peugot diesel": {
+    "marque": "Peugeot",
+    "carburant": "Diesel"
+   },
+   "renaut à sousse": {
+    "marque": "Renault",
+    "ville": "Sousse"
+   },
+   "toyta hybride": {
+    "marque": "Toyota",
+    "carburant": "Hybride"
+   },
+   "voiture a tunis": {
+    "ville": "Tunis"
+   }
+  },
+  "outcome": "passed"
+ },
+ "EC-07": {
+  "test": "testing/test_code/edge_cases/test_edge_cases.py::test_EC07_unknown_brand",
+  "intent": "ambiguous",
+  "criteria": {},
+  "warnings": [
+   "La marque « Tesla » n'est pas présente dans la base : critère ignoré."
+  ],
+  "response": "Je n'ai pas pu transformer votre demande en critère précis.",
+  "result_count": 200,
+  "sample": [
+   "AM-0001 Citroën C3 Tunis Diesel 29000 DT 130500 km",
+   "AM-0002 Renault Zoe Bizerte Électrique 54500 DT 72000 km",
+   "AM-0003 Peugeot 301 Gabès Diesel 25000 DT 190500 km",
+   "AM-0004 Citroën C3 Monastir Diesel 35000 DT 49500 km"
+  ],
+  "with_context": [
+   "ambiguous",
+   {
+    "ville": "Tunis"
+   }
+  ],
+  "outcome": "passed"
+ },
+ "EC-08": {
+  "test": "testing/test_code/edge_cases/test_edge_cases.py::test_EC08_unknown_fuel_type",
+  "intent": "no_criteria",
+  "criteria": {},
+  "warnings": [],
+  "response": "Je n'ai pas identifié de filtre précis. Je vous affiche toutes les annonces disponibles (200).",
+  "result_count": 200,
+  "sample": [
+   "AM-0001 Citroën C3 Tunis Diesel 29000 DT 130500 km",
+   "AM-0002 Renault Zoe Bizerte Électrique 54500 DT 72000 km",
+   "AM-0003 Peugeot 301 Gabès Diesel 25000 DT 190500 km",
+   "AM-0004 Citroën C3 Monastir Diesel 35000 DT 49500 km"
+  ],
+  "screenshot": "screenshots/edge_cases/EC-08_before.png",
+  "outcome": "failed",
+  "error": "le carburant inconnu doit être signalé, pas ignoré en silence\nassert False\n +  where False = any(<generator object test_EC08_unknown_fuel_type.<locals>.<genexpr> at 0x0000029707B0F1D0>)"
+ },
+ "EC-09": {
+  "test": "testing/test_code/edge_cases/test_edge_cases.py::test_EC09_contradictory_criteria",
+  "intent": "search",
+  "criteria": {
+   "prix_max": 30000
+  },
+  "warnings": [
+   "Je ne gère que les maximums de prix (« 50000 DT » ignoré). Exemple : moins de 40 000 DT."
+  ],
+  "response": "Parfait ! J'ai compris votre recherche. J'ai trouvé 46 voitures jusqu'à 30 000 DT.",
+  "result_count": 46,
+  "sample": [
+   "AM-0001 Citroën C3 Tunis Diesel 29000 DT 130500 km",
+   "AM-0003 Peugeot 301 Gabès Diesel 25000 DT 190500 km",
+   "AM-0006 Nissan Micra Tunis Essence 21500 DT 142500 km",
+   "AM-0007 Ford Fiesta Gabès Essence 25500 DT 158500 km"
+  ],
+  "multi_fuel": [
+   {
+    "carburant": [
+     "Diesel",
+     "Électrique"
+    ]
+   },
+   70
+  ],
+  "outcome": "failed",
+  "error": "assert ['AM-0001', '...AM-0015', ...] == []\n  \n  Left contains 46 more items, first extra item: 'AM-0001'\n  Use -v to get more diff"
+ },
+ "EC-10": {
+  "test": "testing/test_code/edge_cases/test_edge_cases.py::test_EC10_missing_dataset",
+  "exception": false,
+  "notice": true,
+  "criteria": {
+   "ville": "Tunis"
+  },
+  "results": 46,
+  "outcome": "passed"
+ },
+ "EC-11": {
+  "test": "testing/test_code/edge_cases/test_edge_cases.py::test_EC11_malformed_records",
+  "outcome": "failed",
+  "error": "'chat_msg'"
+ },
+ "EC-12": {
+  "test": "testing/test_code/edge_cases/test_edge_cases.py::test_EC12_empty_dataset",
+  "exception": [],
+  "last": "J'ai bien compris votre recherche. Je n'ai trouvé aucune voiture correspondant exactement à ces critères. On peut essayer d'élargir la recherche.",
+  "outcome": "passed"
+ },
+ "EC-13": {
+  "test": "testing/test_code/edge_cases/test_edge_cases.py::test_EC13_corrupted_json",
+  "error_messages": [
+   "Impossible de lire cars.json (Expecting property name enclosed in double quotes: line 1 column 24 (char 23)). Régénérez-le avec : python generate_cars.py"
+  ],
+  "exception": [],
+  "outcome": "passed"
+ },
+ "EC-14": {
+  "test": "testing/test_code/edge_cases/test_edge_cases.py::test_EC14_repeated_messages",
+  "criteria": [
+   {
+    "ville": "Tunis",
+    "carburant": "Diesel"
+   },
+   {
+    "ville": "Tunis",
+    "carburant": "Diesel"
+   },
+   {
+    "ville": "Tunis",
+    "carburant": "Diesel"
+   }
+  ],
+  "counts": [
+   14,
+   14,
+   14
+  ],
+  "response_3": "Ces critères étaient déjà actifs : votre recherche reste inchangée. J'ai maintenant 14 voitures diesel à Tunis.",
+  "outcome": "passed"
+ },
+ "EC-15": {
+  "test": "testing/test_code/edge_cases/test_edge_cases.py::test_EC15_unexpected_language_and_long_input",
+  "english": [
+   {
+    "ville": "Tunis",
+    "carburant": "Diesel"
+   },
+   14
+  ],
+  "emoji": [
+   "unsupported",
+   {}
+  ],
+  "long_input_seconds": 0.09,
+  "injection": [
+   "ambiguous",
+   {}
+  ],
+  "outcome": "passed"
+ },
+ "FT-01": {
+  "test": "testing/test_code/functional/test_functional_scenarios.py::test_FT01_search_without_precise_criteria",
+  "intent": "no_criteria",
+  "criteria": {},
+  "warnings": [],
+  "response": "Je n'ai pas identifié de filtre précis. Je vous affiche toutes les annonces disponibles (200).",
+  "result_count": 200,
+  "sample": [
+   "AM-0001 Citroën C3 Tunis Diesel 29000 DT 130500 km",
+   "AM-0002 Renault Zoe Bizerte Électrique 54500 DT 72000 km",
+   "AM-0003 Peugeot 301 Gabès Diesel 25000 DT 190500 km",
+   "AM-0004 Citroën C3 Monastir Diesel 35000 DT 49500 km"
+  ],
+  "input": "Voiture",
+  "expected_count": 200,
+  "engine_count": 200,
+  "displayed_count": 6,
+  "violating_cards": [],
+  "chips": [],
+  "screenshot": "screenshots/functional/FT-01_before.png",
+  "ui_text": "directions_car TOUTES LES ANNONCES Je n'ai pas identifié de filtre précis. Je vous affiche toutes les annonces disponibles (200). Prix : 12 000 – 191 500 DT Moyenne : 51 492 DT Ordre : prix croissant DACIA 2013 Meilleur prix Dacia Sandero 2013 · Mahdia 12 000 DT Essence Manuelle Citadine 238 500 km 2013 Mahdia Voir les détails FIAT 2012 Fiat Punto 2012 · Nabeul 12 500 DT Diesel Manuelle Citadine 1",
+  "outcome": "passed"
+ },
+ "FT-02": {
+  "test": "testing/test_code/functional/test_functional_scenarios.py::test_FT02_search_by_city",
+  "intent": "search",
+  "criteria": {
+   "ville": "Tunis"
+  },
+  "warnings": [],
+  "response": "Parfait ! J'ai compris votre recherche. J'ai trouvé 46 voitures à Tunis.",
+  "result_count": 46,
+  "sample": [
+   "AM-0001 Citroën C3 Tunis Diesel 29000 DT 130500 km",
+   "AM-0006 Nissan Micra Tunis Essence 21500 DT 142500 km",
+   "AM-0010 Renault Captur Tunis Essence 36000 DT 125000 km",
+   "AM-0014 Citroën C4 Tunis Essence 30000 DT 174000 km"
+  ],
+  "input": "Voiture à Tunis",
+  "expected_count": 46,
+  "engine_count": 46,
+  "displayed_count": 46,
+  "violating_cards": [],
+  "chips": [
+   "Tunis",
+   "Tunis"
+  ],
+  "screenshot": "screenshots/functional/FT-02_before.png",
+  "ui_text": "directions_car RECHERCHE Parfait ! J'ai compris votre recherche. J'ai trouvé 46 voitures à Tunis. 🔎 Recherche — cliquez pour retirer un critère : Tunis ✕ Prix : 20 000 – 191 500 DT Moyenne : 54 174 DT Ordre : prix croissant OPEL 2014 Meilleur prix Opel Corsa 2014 · Tunis 20 000 DT Essence Manuelle Citadine 146 000 km 2014 Tunis Voir les détails FIAT 2016 Fiat Tipo 2016 · Tunis 20 000 DT Diesel Man",
+  "outcome": "failed",
+  "error": "assert ['Tunis', 'Tunis'] == ['Tunis']\n  \n  Left contains one more item: 'Tunis'\n  Use -v to get more diff"
+ },
+ "FT-03": {
+  "test": "testing/test_code/functional/test_functional_scenarios.py::test_FT03_search_by_max_price_and_fuel",
+  "intent": "search",
+  "criteria": {
+   "carburant": "Diesel",
+   "prix_max": 40000
+  },
+  "warnings": [],
+  "response": "Parfait ! J'ai compris votre recherche. J'ai trouvé 26 voitures diesel jusqu'à 40 000 DT.",
+  "result_count": 26,
+  "sample": [
+   "AM-0001 Citroën C3 Tunis Diesel 29000 DT 130500 km",
+   "AM-0003 Peugeot 301 Gabès Diesel 25000 DT 190500 km",
+   "AM-0004 Citroën C3 Monastir Diesel 35000 DT 49500 km",
+   "AM-0013 Peugeot 308 Mahdia Diesel 39000 DT 163500 km"
+  ],
+  "input": "Voiture diesel moins de 40000 DT",
+  "expected_count": 24,
+  "engine_count": 26,
+  "displayed_count": 26,
+  "violating_cards": [
+   "FIX-008",
+   "AM-0136"
+  ],
+  "chips": [
+   "Diesel",
+   "Diesel",
+   "Budget ≤ 40 000 DT",
+   "Budget ≤ 40 000 DT"
+  ],
+  "screenshot": "screenshots/functional/FT-03_before.png",
+  "ui_text": "directions_car RECHERCHE Parfait ! J'ai compris votre recherche. J'ai trouvé 26 voitures diesel jusqu'à 40 000 DT. 🔎 Recherche — cliquez pour retirer un critère : Diesel ✕ Budget ≤ 40 000 DT ✕ Prix : 12 500 – 40 000 DT Moyenne : 29 038 DT Ordre : prix croissant FIAT 2012 Meilleur prix Fiat Punto 2012 · Nabeul 12 500 DT Diesel Manuelle Citadine 196 000 km 2012 Nabeul Voir les détails DACIA 2016 Dac",
+  "max_displayed_price": 40000,
+  "screenshot_validation": "screenshots/functional/FT-03_validation_before.png",
+  "outcome": "failed",
+  "error": "assert ['AM-0001', '...AM-0024', ...] == ['AM-0001', '...AM-0024', ...]\n  \n  At index 18 diff: 'AM-0136' != 'AM-0153'\n  Left contains 2 more items, first extra item: 'FIX-002'\n  Use -v to get more diff"
+ },
+ "FT-04": {
+  "test": "testing/test_code/functional/test_functional_scenarios.py::test_FT04_multi_criteria",
+  "intent": "search",
+  "criteria": {
+   "ville": "Tunis",
+   "carburant": "Diesel",
+   "prix_max": 40000,
+   "kilometrage_max": 100000
+  },
+  "warnings": [],
+  "response": "Parfait ! J'ai compris votre recherche. J'ai trouvé 4 voitures diesel à Tunis jusqu'à 40 000 DT avec 100 000 km maximum.",
+  "result_count": 4,
+  "sample": [
+   "AM-0101 Citroën C-Elysée Tunis Diesel 36000 DT 89500 km",
+   "FIX-001 Peugeot 208 Tunis Diesel 38500 DT 68000 km",
+   "FIX-002 Peugeot 301 Tunis Diesel 39500 DT 97000 km",
+   "FIX-008 Renault Clio Tunis Diesel 40000 DT 100000 km"
+  ],
+  "input": "Je cherche une voiture diesel à Tunis moins de 40000 DT avec moins de 100000 km.",
+  "expected_count": 3,
+  "engine_count": 4,
+  "displayed_count": 4,
+  "violating_cards": [
+   "FIX-008"
+  ],
+  "chips": [
+   "Diesel",
+   "Diesel",
+   "Tunis",
+   "Tunis",
+   "Budget ≤ 40 000 DT",
+   "Budget ≤ 40 000 DT",
+   "≤ 100 000 km",
+   "≤ 100 000 km"
+  ],
+  "screenshot": "screenshots/functional/FT-04_results_before.png",
+  "ui_text": "directions_car RECHERCHE Parfait ! J'ai compris votre recherche. J'ai trouvé 4 voitures diesel à Tunis jusqu'à 40 000 DT avec 100 000 km maximum. 🔎 Recherche — cliquez pour retirer un critère : Diesel ✕ Tunis ✕ Budget ≤ 40 000 DT ✕ ≤ 100 000 km ✕ Prix : 36 000 – 40 000 DT Moyenne : 38 500 DT Ordre : prix croissant CITROËN 2021 Meilleur prix Plus récente Citroën C-Elysée 2021 · Tunis 36 000 DT Dies",
+  "outcome": "failed",
+  "error": "assert ['AM-0101', '...2', 'FIX-008'] == ['AM-0101', '...1', 'FIX-002']\n  \n  Left contains one more item: 'FIX-008'\n  Use -v to get more diff"
+ },
+ "FT-05": {
+  "test": "testing/test_code/functional/test_functional_scenarios.py::test_FT05_ambiguous_request",
+  "intent": "no_criteria",
+  "criteria": {},
+  "warnings": [],
+  "response": "Je n'ai pas identifié de filtre précis. Je vous affiche toutes les annonces disponibles (200).",
+  "result_count": 200,
+  "sample": [
+   "AM-0001 Citroën C3 Tunis Diesel 29000 DT 130500 km",
+   "AM-0002 Renault Zoe Bizerte Électrique 54500 DT 72000 km",
+   "AM-0003 Peugeot 301 Gabès Diesel 25000 DT 190500 km",
+   "AM-0004 Citroën C3 Monastir Diesel 35000 DT 49500 km"
+  ],
+  "input": "Je veux une voiture très bien, quelque chose de bon.",
+  "expected_count": 200,
+  "engine_count": 200,
+  "displayed_count": 6,
+  "violating_cards": [],
+  "chips": [],
+  "screenshot": "screenshots/functional/FT-05_before.png",
+  "ui_text": "directions_car TOUTES LES ANNONCES Je n'ai pas identifié de filtre précis. Je vous affiche toutes les annonces disponibles (200). Prix : 12 000 – 191 500 DT Moyenne : 51 492 DT Ordre : prix croissant DACIA 2013 Meilleur prix Dacia Sandero 2013 · Mahdia 12 000 DT Essence Manuelle Citadine 238 500 km 2013 Mahdia Voir les détails FIAT 2012 Fiat Punto 2012 · Nabeul 12 500 DT Diesel Manuelle Citadine 1",
+  "outcome": "passed"
+ },
+ "FT-06": {
+  "test": "testing/test_code/functional/test_functional_scenarios.py::test_FT06_search_by_brand",
+  "intent": "search",
+  "criteria": {
+   "marque": "Peugeot"
+  },
+  "warnings": [],
+  "response": "Parfait ! J'ai compris votre recherche. J'ai trouvé 33 voitures Peugeot.",
+  "result_count": 33,
+  "sample": [
+   "AM-0003 Peugeot 301 Gabès Diesel 25000 DT 190500 km",
+   "AM-0012 Peugeot 2008 Sousse Essence 41500 DT 143500 km",
+   "AM-0013 Peugeot 308 Mahdia Diesel 39000 DT 163500 km",
+   "AM-0020 Peugeot 2008 Tunis Diesel 27500 DT 213500 km"
+  ],
+  "input": "Je cherche une Peugeot",
+  "expected_count": 33,
+  "engine_count": 33,
+  "displayed_count": 33,
+  "violating_cards": [],
+  "chips": [
+   "Peugeot",
+   "Peugeot"
+  ],
+  "screenshot": "screenshots/functional/FT-06_before.png",
+  "ui_text": "directions_car RECHERCHE Parfait ! J'ai compris votre recherche. J'ai trouvé 33 voitures Peugeot. 🔎 Recherche — cliquez pour retirer un critère : Peugeot ✕ Prix : 21 500 – 78 000 DT Moyenne : 44 621 DT Ordre : prix croissant PEUGEOT 2014 Meilleur prix Peugeot 301 2014 · Sousse 21 500 DT Diesel Manuelle Berline 107 000 km 2014 Sousse Voir les détails PEUGEOT 2018 Peugeot 301 2018 · Gabès 25 000 DT ",
+  "outcome": "passed"
+ },
+ "FT-07": {
+  "test": "testing/test_code/functional/test_functional_scenarios.py::test_FT07_search_by_model",
+  "intent": "search",
+  "criteria": {
+   "marque": "Renault",
+   "modele": "Clio"
+  },
+  "warnings": [],
+  "response": "Parfait ! J'ai compris votre recherche. J'ai trouvé 4 voitures Renault Clio.",
+  "result_count": 4,
+  "sample": [
+   "AM-0082 Renault Clio Ariana Essence 35000 DT 97000 km",
+   "AM-0097 Renault Clio Nabeul Diesel 27500 DT 144000 km",
+   "AM-0185 Renault Clio Mahdia Essence 32000 DT 73000 km",
+   "FIX-008 Renault Clio Tunis Diesel 40000 DT 100000 km"
+  ],
+  "input": "Je cherche une Clio",
+  "expected_count": 4,
+  "engine_count": 4,
+  "displayed_count": 4,
+  "violating_cards": [],
+  "chips": [
+   "Renault",
+   "Renault",
+   "Clio",
+   "Clio"
+  ],
+  "screenshot": "screenshots/functional/FT-07_before.png",
+  "ui_text": "directions_car RECHERCHE Parfait ! J'ai compris votre recherche. J'ai trouvé 4 voitures Renault Clio. 🔎 Recherche — cliquez pour retirer un critère : Renault ✕ Clio ✕ Prix : 27 500 – 40 000 DT Moyenne : 33 625 DT Ordre : prix croissant RENAULT 2017 Meilleur prix Renault Clio 2017 · Nabeul 27 500 DT Diesel Manuelle Citadine 144 000 km 2017 Nabeul Voir les détails RENAULT 2018 Plus faible km Renault",
+  "outcome": "passed"
+ },
+ "FT-08": {
+  "test": "testing/test_code/functional/test_functional_scenarios.py::test_FT08_search_by_min_price",
+  "intent": "ambiguous",
+  "criteria": {},
+  "warnings": [
+   "Je ne gère que les maximums de prix (« 100000 DT » ignoré). Exemple : moins de 40 000 DT."
+  ],
+  "response": "Je n'ai pas pu transformer votre demande en critère précis.",
+  "result_count": 200,
+  "sample": [
+   "AM-0001 Citroën C3 Tunis Diesel 29000 DT 130500 km",
+   "AM-0002 Renault Zoe Bizerte Électrique 54500 DT 72000 km",
+   "AM-0003 Peugeot 301 Gabès Diesel 25000 DT 190500 km",
+   "AM-0004 Citroën C3 Monastir Diesel 35000 DT 49500 km"
+  ],
+  "input": "Une voiture à plus de 100000 DT",
+  "expected_count": 14,
+  "engine_count": 200,
+  "displayed_count": 0,
+  "violating_cards": [],
+  "chips": [],
+  "screenshot": "screenshots/functional/FT-08_before.png",
+  "ui_text": "directions_car PRÉCISION NÉCESSAIRE Je n'ai pas pu transformer votre demande en critère précis. ⚠ Je ne gère que les maximums de prix (« 100000 DT » ignoré). Exemple : moins de 40 000 DT. POUR COMMENCER 🚗 Une voiture économique ⚡ Une voiture automatique 💰 Une voiture à moins de 30 000 DT 📍 Une voiture disponible à Sfax 10:35",
+  "outcome": "failed",
+  "error": "assert None == 100000\n +  where None = <built-in method get of dict object at 0x00000297082A0CC0>('prix_min')\n +    where <built-in method get of dict object at 0x00000297082A0CC0> = {}.get\n +      where {} = Turn(message='Une voiture à plus de 100000 DT', intent='ambiguous', criteria={}, extracted={}, added={}, changed={}, r...e=\"Je n'ai pas pu transformer votre demande en critère précis.\", result_count=None, replaced_previous=False, sort=None).criteria"
+ },
+ "FT-09": {
+  "test": "testing/test_code/functional/test_functional_scenarios.py::test_FT09_change_criterion_in_conversation",
+  "intent": "follow_up",
+  "criteria": {
+   "carburant": "Diesel",
+   "ville": "Sfax"
+  },
+  "warnings": [],
+  "response": "Bien sûr : je remplace Ville : Tunis → Sfax. J'ai maintenant 8 voitures diesel à Sfax.",
+  "result_count": 8,
+  "sample": [
+   "AM-0034 Dacia Sandero Sfax Diesel 15500 DT 209500 km",
+   "AM-0035 Renault Symbol Sfax Diesel 16500 DT 260500 km",
+   "AM-0052 Kia Sportage Sfax Diesel 111500 DT 30500 km",
+   "AM-0081 BMW Série 3 Sfax Diesel 90500 DT 158500 km"
+  ],
+  "input": "plutôt à Sfax",
+  "expected_count": 8,
+  "engine_count": 8,
+  "displayed_count": 8,
+  "violating_cards": [],
+  "chips": [
+   "Diesel",
+   "Diesel",
+   "Sfax",
+   "Sfax"
+  ],
+  "screenshot": "screenshots/functional/FT-09_before.png",
+  "ui_text": "directions_car RECHERCHE MISE À JOUR Bien sûr : je remplace Ville : Tunis → Sfax. J'ai maintenant 8 voitures diesel à Sfax. 🔎 Recherche — cliquez pour retirer un critère : Diesel ✕ Sfax ✕ ⇄ Ville : Tunis → Sfax Prix : 15 500 – 111 500 DT Moyenne : 57 375 DT Ordre : prix croissant DACIA 2016 Meilleur prix Dacia Sandero 2016 · Sfax 15 500 DT Diesel Automatique Citadine 209 500 km 2016 Sfax Voir les ",
+  "outcome": "passed"
+ },
+ "FT-10": {
+  "test": "testing/test_code/functional/test_functional_scenarios.py::test_FT10_remove_criterion",
+  "intent": "follow_up",
+  "criteria": {
+   "marque": "Peugeot",
+   "carburant": "Diesel"
+  },
+  "warnings": [],
+  "response": "Bien sûr : je retire Ville. J'ai maintenant 14 voitures Peugeot diesel.",
+  "result_count": 14,
+  "sample": [
+   "AM-0003 Peugeot 301 Gabès Diesel 25000 DT 190500 km",
+   "AM-0013 Peugeot 308 Mahdia Diesel 39000 DT 163500 km",
+   "AM-0020 Peugeot 2008 Tunis Diesel 27500 DT 213500 km",
+   "AM-0047 Peugeot 301 Sousse Diesel 21500 DT 107000 km"
+  ],
+  "input": "peu importe la ville",
+  "expected_count": 14,
+  "engine_count": 14,
+  "displayed_count": 14,
+  "violating_cards": [],
+  "chips": [
+   "Peugeot",
+   "Peugeot",
+   "Diesel",
+   "Diesel"
+  ],
+  "screenshot": "screenshots/functional/FT-10_before.png",
+  "ui_text": "directions_car RECHERCHE MISE À JOUR Bien sûr : je retire Ville. J'ai maintenant 14 voitures Peugeot diesel. 🔎 Recherche — cliquez pour retirer un critère : Peugeot ✕ Diesel ✕ Ville Prix : 21 500 – 67 500 DT Moyenne : 41 607 DT Ordre : prix croissant PEUGEOT 2014 Meilleur prix Peugeot 301 2014 · Sousse 21 500 DT Diesel Manuelle Berline 107 000 km 2014 Sousse Voir les détails PEUGEOT 2018 Peugeot 3",
+  "outcome": "passed"
+ },
+ "FT-11": {
+  "test": "testing/test_code/functional/test_functional_scenarios.py::test_FT11_no_matching_vehicle",
+  "intent": "search",
+  "criteria": {
+   "ville": "Gabès",
+   "carburant": "Électrique",
+   "prix_max": 30000
+  },
+  "warnings": [],
+  "response": "J'ai bien compris votre recherche. Je n'ai trouvé aucune voiture correspondant exactement à ces critères. On peut essayer d'élargir la recherche.",
+  "result_count": 0,
+  "sample": [],
+  "input": "Voiture électrique à Gabès moins de 30000 DT",
+  "expected_count": 0,
+  "engine_count": 0,
+  "displayed_count": 0,
+  "violating_cards": [],
+  "chips": [
+   "Électrique",
+   "Électrique",
+   "Gabès",
+   "Gabès",
+   "Budget ≤ 30 000 DT",
+   "Budget ≤ 30 000 DT"
+  ],
+  "screenshot": "screenshots/functional/FT-11_before.png",
+  "ui_text": "directions_car RECHERCHE J'ai bien compris votre recherche. Je n'ai trouvé aucune voiture correspondant exactement à ces critères. On peut essayer d'élargir la recherche. 🔎 Recherche — cliquez pour retirer un critère : Électrique ✕ Gabès ✕ Budget ≤ 30 000 DT ✕ 🔍 Aucune voiture ne correspond exactement. Choisissez une piste ci-dessous pour élargir la recherche, ou reformulez votre demande. Supprime",
+  "outcome": "passed"
+ },
+ "FT-12": {
+  "test": "testing/test_code/functional/test_functional_scenarios.py::test_FT12_brand_fuel_city_price",
+  "intent": "search",
+  "criteria": {
+   "marque": "Peugeot",
+   "ville": "Tunis",
+   "carburant": "Diesel",
+   "prix_max": 40000
+  },
+  "warnings": [],
+  "response": "Parfait ! J'ai compris votre recherche. J'ai trouvé 3 voitures Peugeot diesel à Tunis jusqu'à 40 000 DT.",
+  "result_count": 3,
+  "sample": [
+   "AM-0020 Peugeot 2008 Tunis Diesel 27500 DT 213500 km",
+   "FIX-001 Peugeot 208 Tunis Diesel 38500 DT 68000 km",
+   "FIX-002 Peugeot 301 Tunis Diesel 39500 DT 97000 km"
+  ],
+  "input": "Je cherche une Peugeot diesel à Tunis moins de 40000 DT.",
+  "expected_count": 3,
+  "engine_count": 3,
+  "displayed_count": 3,
+  "violating_cards": [],
+  "chips": [
+   "Peugeot",
+   "Peugeot",
+   "Diesel",
+   "Diesel",
+   "Tunis",
+   "Tunis",
+   "Budget ≤ 40 000 DT",
+   "Budget ≤ 40 000 DT"
+  ],
+  "screenshot": "screenshots/functional/FT-12_before.png",
+  "ui_text": "directions_car RECHERCHE Parfait ! J'ai compris votre recherche. J'ai trouvé 3 voitures Peugeot diesel à Tunis jusqu'à 40 000 DT. 🔎 Recherche — cliquez pour retirer un critère : Peugeot ✕ Diesel ✕ Tunis ✕ Budget ≤ 40 000 DT ✕ Prix : 27 500 – 39 500 DT Moyenne : 35 167 DT Ordre : prix croissant PEUGEOT 2014 Meilleur prix Peugeot 2008 2014 · Tunis 27 500 DT Diesel Manuelle SUV 213 500 km 2014 Tunis ",
+  "outcome": "passed"
+ },
+ "FT-13": {
+  "test": "testing/test_code/functional/test_functional_scenarios.py::test_FT13_reset_conversation_criteria",
+  "intent": "reset",
+  "criteria": {},
+  "warnings": [],
+  "response": "C'est noté, j'ai effacé tous les critères. Que recherchez-vous maintenant ?",
+  "result_count": 200,
+  "sample": [
+   "AM-0001 Citroën C3 Tunis Diesel 29000 DT 130500 km",
+   "AM-0002 Renault Zoe Bizerte Électrique 54500 DT 72000 km",
+   "AM-0003 Peugeot 301 Gabès Diesel 25000 DT 190500 km",
+   "AM-0004 Citroën C3 Monastir Diesel 35000 DT 49500 km"
+  ],
+  "input": "Nouvelle recherche",
+  "expected_count": 200,
+  "engine_count": 200,
+  "displayed_count": 0,
+  "violating_cards": [],
+  "chips": [],
+  "screenshot": "screenshots/functional/FT-13_before.png",
+  "ui_text": "directions_car NOUVELLE RECHERCHE C'est noté, j'ai effacé tous les critères. Que recherchez-vous maintenant ? POUR COMMENCER 🚗 Une voiture économique ⚡ Une voiture automatique 💰 Une voiture à moins de 30 000 DT 📍 Une voiture disponible à Sfax 10:35",
+  "outcome": "failed",
+  "error": "après réinitialisation, l'ancien contexte ne doit pas revenir\nassert ['Sfax', 'Sfax'] == ['Sfax']\n  \n  Left contains one more item: 'Sfax'\n  Use -v to get more diff"
+ },
+ "IT-01": {
+  "test": "testing/test_code/integration/test_integration_flow.py::test_IT01_chat_to_criteria_extraction",
+  "input": "Je cherche une Peugeot diesel à Tunis",
+  "session_criteria": {
+   "marque": "Peugeot",
+   "ville": "Tunis",
+   "carburant": "Diesel"
+  },
+  "parser_criteria": {
+   "marque": "Peugeot",
+   "ville": "Tunis",
+   "carburant": "Diesel"
+  },
+  "messages": [
+   "user",
+   "assistant"
+  ],
+  "outcome": "passed"
+ },
+ "IT-02": {
+  "test": "testing/test_code/integration/test_integration_flow.py::test_IT02_criteria_to_search_engine",
+  "outcome": "failed",
+  "error": "diesel à Tunis moins de 40000 DT\nassert ['AM-0001', '...FIX-002', ...] == ['AM-0001', '...1', 'FIX-002']\n  \n  Left contains one more item: 'FIX-008'\n  Use -v to get more diff"
+ },
+ "IT-03": {
+  "test": "testing/test_code/integration/test_integration_flow.py::test_IT03_search_engine_and_dataset",
+  "total": 200,
+  "cities": 10,
+  "brands": 17,
+  "unique_ids": 200,
+  "metadata": {
+   "name": "AutoMind AI — annonces synthétiques",
+   "synthetic": true,
+   "disclaimer": "Données fictives générées automatiquement. Les prix ne sont pas des valeurs du marché.",
+   "seed": 42,
+   "count": 200,
+   "reference_year": 2026,
+   "generator": "generate_cars.py v1.0"
+  },
+  "list_format": 5,
+  "outcome": "passed"
+ },
+ "IT-04": {
+  "test": "testing/test_code/integration/test_integration_flow.py::test_IT04_search_results_to_ui_cards",
+  "input": "Peugeot à Tunis",
+  "backend_ids": [
+   "AM-0020",
+   "AM-0175",
+   "FIX-001",
+   "FIX-002",
+   "AM-0146",
+   "AM-0025",
+   "AM-0126",
+   "AM-0036"
+  ],
+  "displayed_ids": [
+   "AM-0020",
+   "AM-0175",
+   "FIX-001",
+   "FIX-002",
+   "AM-0146",
+   "AM-0025"
+  ],
+  "displayed": [
+   "Peugeot 2008 | 2014 · Tunis | 27 500 DT",
+   "Peugeot 208 | 2020 · Tunis | 36 500 DT",
+   "Peugeot 208 | 2019 · Tunis | 38 500 DT",
+   "Peugeot 301 | 2018 · Tunis | 39 500 DT",
+   "Peugeot 301 | 2022 · Tunis | 40 000 DT",
+   "Peugeot 301 | 2025 · Tunis | 55 500 DT"
+  ],
+  "mismatches": [],
+  "screenshot": "screenshots/integration/IT-04_before.png",
+  "outcome": "passed"
+ },
+ "IT-05": {
+  "test": "testing/test_code/integration/test_integration_flow.py::test_IT05_multi_criteria_end_to_end",
+  "input": "Je cherche une voiture diesel à Tunis moins de 40000 DT avec moins de 100000 km.",
+  "expected_ids": [
+   "AM-0101",
+   "FIX-001",
+   "FIX-002"
+  ],
+  "displayed_ids": [
+   "AM-0101",
+   "FIX-001",
+   "FIX-002",
+   "FIX-008"
+  ],
+  "displayed": [
+   "Citroën C-Elysée | 2021 · Tunis | 36 000 DT | 89 500 km\n2021\nTunis",
+   "Peugeot 208 | 2019 · Tunis | 38 500 DT | 68 000 km\n2019\nTunis",
+   "Peugeot 301 | 2018 · Tunis | 39 500 DT | 97 000 km\n2018\nTunis",
+   "Renault Clio | 2017 · Tunis | 40 000 DT | 100 000 km\n2017\nTunis"
+  ],
+  "violations": [
+   "FIX-008"
+  ],
+  "response": "Parfait ! J'ai compris votre recherche. J'ai trouvé 4 voitures diesel à Tunis jusqu'à 40 000 DT avec 100 000 km maximum.",
+  "screenshot": "screenshots/integration/IT-05_before.png",
+  "outcome": "failed",
+  "error": "assert {'AM-0101', '...2', 'FIX-008'} <= {'AM-0101', '...1', 'FIX-002'}\n  \n  Extra items in the left set:\n  'FIX-008'"
+ },
+ "IT-06": {
+  "test": "testing/test_code/integration/test_integration_flow.py::test_IT06_context_kept_between_messages",
+  "steps": [
+   [
+    "Je cherche une voiture diesel",
+    {
+     "carburant": "Diesel"
+    },
+    "search"
+   ],
+   [
+    "À Tunis seulement",
+    {
+     "carburant": "Diesel",
+     "ville": "Tunis"
+    },
+    "follow_up"
+   ],
+   [
+    "Maximum 40 000 DT",
+    {
+     "carburant": "Diesel",
+     "ville": "Tunis",
+     "prix_max": 40000
+    },
+    "follow_up"
+   ],
+   [
+    "plutôt à Sfax",
+    {
+     "carburant": "Diesel",
+     "ville": "Sfax",
+     "prix_max": 40000
+    },
+    "follow_up"
+   ]
+  ],
+  "outcome": "passed"
+ },
+ "IT-07": {
+  "test": "testing/test_code/integration/test_integration_flow.py::test_IT07_suggestions_match_real_search",
+  "checked": [
+   [
+    "À Tunis",
+    14,
+    14
+   ],
+   [
+    "Moins de 40 000 DT",
+    26,
+    26
+   ],
+   [
+    "Depuis 2018",
+    39,
+    39
+   ],
+   [
+    "Moins de 120 000 km",
+    27,
+    27
+   ],
+   [
+    "Supprimer le critère de carburant",
+    200,
+    200
+   ],
+   [
+    "Augmenter le budget à 32 000 DT",
+    3,
+    3
+   ],
+   [
+    "Supprimer le critère de carburant",
+    3,
+    3
+   ],
+   [
+    "Étendre la zone de recherche",
+    7,
+    7
+   ]
+  ],
+  "outcome": "passed"
+ },
+ "IT-08": {
+  "test": "testing/test_code/integration/test_integration_flow.py::test_IT08_manual_filters_to_chat",
+  "widget_synced_to": "Tunis",
+  "criteria_after": {
+   "ville": "Sfax",
+   "marque": "Peugeot"
+  },
+  "last_user": "Filtres manuels : Marque = Peugeot, Ville = Sfax",
+  "outcome": "passed"
+ },
+ "RT-01": {
+  "test": "testing/test_code/regression/test_regression_suite.py::test_RT01_basic_search",
+  "intent": "no_criteria",
+  "criteria": {},
+  "warnings": [],
+  "response": "Je n'ai pas identifié de filtre précis. Je vous affiche toutes les annonces disponibles (200).",
+  "result_count": 200,
+  "sample": [
+   "AM-0001 Citroën C3 Tunis Diesel 29000 DT 130500 km",
+   "AM-0002 Renault Zoe Bizerte Électrique 54500 DT 72000 km",
+   "AM-0003 Peugeot 301 Gabès Diesel 25000 DT 190500 km",
+   "AM-0004 Citroën C3 Monastir Diesel 35000 DT 49500 km"
+  ],
+  "ui_cards": 6,
+  "screenshot": "screenshots/regression/RT-01_before.png",
+  "outcome": "passed"
+ },
+ "RT-02": {
+  "test": "testing/test_code/regression/test_regression_suite.py::test_RT02_city_filter",
+  "intent": "search",
+  "criteria": {
+   "ville": "Sousse"
+  },
+  "warnings": [],
+  "response": "Parfait ! J'ai compris votre recherche. J'ai trouvé 17 voitures à Sousse.",
+  "result_count": 17,
+  "sample": [
+   "AM-0012 Peugeot 2008 Sousse Essence 41500 DT 143500 km",
+   "AM-0018 Dacia Duster Sousse Essence 46500 DT 56500 km",
+   "AM-0033 Peugeot 308 Sousse Essence 78000 DT 7500 km",
+   "AM-0047 Peugeot 301 Sousse Diesel 21500 DT 107000 km"
+  ],
+  "ui_cards": 6,
+  "violations": [],
+  "screenshot": "screenshots/regression/RT-02_before.png",
+  "outcome": "passed"
+ },
+ "RT-03": {
+  "test": "testing/test_code/regression/test_regression_suite.py::test_RT03_price_filter",
+  "intent": "search",
+  "criteria": {
+   "prix_max": 30000
+  },
+  "warnings": [],
+  "response": "Parfait ! J'ai compris votre recherche. J'ai trouvé 46 voitures jusqu'à 30 000 DT.",
+  "result_count": 46,
+  "sample": [
+   "AM-0001 Citroën C3 Tunis Diesel 29000 DT 130500 km",
+   "AM-0003 Peugeot 301 Gabès Diesel 25000 DT 190500 km",
+   "AM-0006 Nissan Micra Tunis Essence 21500 DT 142500 km",
+   "AM-0007 Ford Fiesta Gabès Essence 25500 DT 158500 km"
+  ],
+  "strict_count": 46,
+  "inclusive_count": 46,
+  "violations": [],
+  "screenshot": "screenshots/regression/RT-03_before.png",
+  "at_30000": [
+   "AM-0014",
+   "AM-0026",
+   "AM-0095"
+  ],
+  "outcome": "failed",
+  "error": "assert ['AM-0001', '...AM-0015', ...] == ['AM-0001', '...AM-0016', ...]\n  \n  At index 4 diff: 'AM-0014' != 'AM-0015'\n  Left contains 3 more items, first extra item: 'AM-0169'\n  Use -v to get more diff"
+ },
+ "RT-04": {
+  "test": "testing/test_code/regression/test_regression_suite.py::test_RT04_multi_criteria",
+  "intent": "search",
+  "criteria": {
+   "ville": "Tunis",
+   "carburant": "Essence",
+   "prix_max": 45000
+  },
+  "warnings": [],
+  "response": "Parfait ! J'ai compris votre recherche. J'ai trouvé 18 voitures essence à Tunis jusqu'à 45 000 DT.",
+  "result_count": 18,
+  "sample": [
+   "AM-0006 Nissan Micra Tunis Essence 21500 DT 142500 km",
+   "AM-0010 Renault Captur Tunis Essence 36000 DT 125000 km",
+   "AM-0014 Citroën C4 Tunis Essence 30000 DT 174000 km",
+   "AM-0032 Kia Picanto Tunis Essence 29500 DT 68000 km"
+  ],
+  "ui_cards": 6,
+  "violations": [],
+  "screenshot": "screenshots/regression/RT-04_before.png",
+  "outcome": "passed"
+ },
+ "RT-05": {
+  "test": "testing/test_code/regression/test_regression_suite.py::test_RT05_context_update",
+  "intent": "follow_up",
+  "criteria": {
+   "carburant": "Diesel",
+   "ville": "Tunis",
+   "prix_max": 40000
+  },
+  "warnings": [],
+  "response": "D'accord, je limite la recherche à 40 000 DT. J'ai maintenant 7 voitures diesel à Tunis jusqu'à 40 000 DT.",
+  "result_count": 7,
+  "sample": [
+   "AM-0001 Citroën C3 Tunis Diesel 29000 DT 130500 km",
+   "AM-0020 Peugeot 2008 Tunis Diesel 27500 DT 213500 km",
+   "AM-0101 Citroën C-Elysée Tunis Diesel 36000 DT 89500 km",
+   "AM-0106 Fiat Tipo Tunis Diesel 20000 DT 257000 km"
+  ],
+  "chips": [
+   "Diesel",
+   "Diesel",
+   "Tunis",
+   "Tunis",
+   "Budget ≤ 40 000 DT",
+   "Budget ≤ 40 000 DT"
+  ],
+  "violations": [],
+  "screenshot": "screenshots/regression/RT-05_before.png",
+  "outcome": "failed",
+  "error": "assert ['Budget ≤ 40...nis', 'Tunis'] == ['40 000 DT',...sel', 'Tunis']\n  \n  At index 0 diff: 'Budget ≤ 40\\u202f000 DT' != '40 000 DT'\n  Left contains 3 more items, first extra item: 'Diesel'\n  Use -v to get more diff"
+ },
+ "RT-06": {
+  "test": "testing/test_code/regression/test_regression_suite.py::test_RT06_original_project_suite",
+  "summary": "134 passed in 12.46s",
+  "failed": [],
+  "outcome": "passed"
+ },
+ "RT-07": {
+  "test": "testing/test_code/regression/test_regression_suite.py::test_RT07_readme_demo_table_still_true",
+  "rows": [
+   [
+    "voiture à Tunis",
+    46,
+    46
+   ],
+   [
+    "diesel moins de 40000 DT",
+    26,
+    26
+   ],
+   [
+    "Peugeot à Sfax",
+    3,
+    3
+   ],
+   [
+    "essence à Tunis moins de 45000 DT",
+    18,
+    18
+   ],
+   [
+    "diesel à Tunis moins de 40000 DT et moins de 100000 km",
+    4,
+    4
+   ],
+   [
+    "Toyota après 2020",
+    5,
+    5
+   ]
+  ],
+  "outcome": "passed"
+ },
+ "RT-08": {
+  "test": "testing/test_code/regression/test_regression_suite.py::test_RT08_readme_conversation_scenario",
+  "steps": [
+   [
+    "Je cherche une voiture diesel à Sfax.",
+    "search",
+    {
+     "ville": "Sfax",
+     "carburant": "Diesel"
+    },
+    8,
+    null
+   ],
+   [
+    "Budget maximum 40 000 dinars.",
+    "follow_up",
+    {
+     "ville": "Sfax",
+     "carburant": "Diesel",
+     "prix_max": 40000
+    },
+    3,
+    3
+   ],
+   [
+    "Montre-moi des modèles plus récents.",
+    "sort",
+    {
+     "ville": "Sfax",
+     "carburant": "Diesel",
+     "prix_max": 40000
+    },
+    3,
+    null
+   ],
+   [
+    "Voir les détails",
+    "unsupported",
+    {
+     "ville": "Sfax",
+     "carburant": "Diesel",
+     "prix_max": 40000
+    },
+    3,
+    null
+   ],
+   [
+    "Enlève le critère diesel.",
+    "follow_up",
+    {
+     "ville": "Sfax",
+     "prix_max": 40000
+    },
+    6,
+    6
+   ],
+   [
+    "Augmente le budget à 50 000 DT.",
+    "follow_up",
+    {
+     "ville": "Sfax",
+     "prix_max": 50000
+    },
+    10,
+    10
+   ],
+   [
+    "Nouvelle recherche",
+    "reset",
+    {},
+    200,
+    null
+   ]
+  ],
+  "outcome": "failed",
+  "error": "assert 7 == 6\n +  where 7 = len([('Je cherche une voiture diesel à Sfax.', ''), ('Budget maximum 40 000 dinars.', '3'), ('Montre-moi des modèles plus ...s.', ''), ('Voir les détails', ''), ('Enlève le critère diesel.', '6'), ('Augmente le budget à 50 000 DT.', '10'), ...])"
+ },
+ "UI-01": {
+  "test": "testing/test_code/ui/test_ui_browser.py::test_UI01_launch_and_welcome_screen",
+  "title": "AutoMind AI — Assistant automobile",
+  "welcome": "Votre prochaine voiture commence ici.",
+  "meta": "200 annonces · 17 marques · 10 villes · données fictives de démonstration",
+  "starter_buttons": 4,
+  "exceptions": 0,
+  "console_errors": [],
+  "screenshot": "screenshots/ui/UI-01_before.png",
+  "outcome": "passed"
+ },
+ "UI-02": {
+  "test": "testing/test_code/ui/test_ui_browser.py::test_UI02_chat_input_and_user_message",
+  "input_visible": true,
+  "input_enabled": true,
+  "placeholder": "Décrivez la voiture que vous recherchez...",
+  "user_bubble": "face\n\nJe cherche une voiture hybride\n\n10:36",
+  "user_bubbles": 1,
+  "input_cleared": true,
+  "screenshot": "screenshots/ui/UI-02_before.png",
+  "outcome": "passed"
+ },
+ "UI-03": {
+  "test": "testing/test_code/ui/test_ui_browser.py::test_UI03_assistant_message_and_cards",
+  "title": "RECHERCHE",
+  "text": "Parfait ! J'ai compris votre recherche. J'ai trouvé 18 voitures Peugeot essence.",
+  "cards": 6,
+  "first_card": {
+   "id": "AM-0157",
+   "name": "Peugeot 208",
+   "meta": "2017 · Sfax",
+   "price_text": "28 500 DT",
+   "chips": "Essence\nAutomatique\nCitadine",
+   "specs": "99 500 km\n2017\nSfax"
+  },
+  "readable": true,
+  "screenshot": "screenshots/ui/UI-03_before.png",
+  "screenshot_card": "screenshots/ui/UI-03_card_before.png",
+  "outcome": "passed"
+ },
+ "UI-04": {
+  "test": "testing/test_code/ui/test_ui_browser.py::test_UI04_criteria_chips_display_and_removal",
+  "chips_before": [
+   "Peugeot",
+   "Peugeot",
+   "Diesel",
+   "Diesel",
+   "Tunis",
+   "Tunis"
+  ],
+  "chips_after": [
+   "Peugeot",
+   "Peugeot",
+   "Diesel",
+   "Diesel"
+  ],
+  "message_sent": "face\n\npeu importe la ville\n\n10:37",
+  "screenshot": "screenshots/ui/UI-04_chips_before.png",
+  "screenshot_after": "screenshots/ui/UI-04_after_removal_before.png",
+  "outcome": "failed",
+  "error": "assert (['Peugeot', '...nis', 'Tunis'] == ['Peugeot', 'Tunis', 'Diesel']\n  \n  At index 1 diff: 'Peugeot' != 'Tunis'\n  Left contains 3 more items, first extra item: 'Diesel'\n  Use -v to get more diff or ['Diesel', 'D...nis', 'Tunis'] == ['Diesel', 'Peugeot', 'Tunis']\n  \n  At index 1 diff: 'Diesel' != 'Peugeot'\n  Left contains 3 more items, first extra item: 'Peugeot'\n  Use -v to get more diff)"
+ },
+ "UI-05": {
+  "test": "testing/test_code/ui/test_ui_browser.py::test_UI05_no_result_empty_state",
+  "empty_state": 1,
+  "empty_text": "🔍\nAucune voiture ne correspond exactement.\nChoisissez une piste ci-dessous pour élargir la recherche, ou reformulez votre demande.",
+  "suggestions": [],
+  "screenshot": "screenshots/ui/UI-05_before.png",
+  "outcome": "failed",
+  "error": "assert (1 == 1 and [])\n +  where 1 = count()\n +    where count = <Locator frame=<Frame name= url='http://localhost:8611/'> selector='[data-testid=\"stChatMessage\"] >> nth=-1 >> .am-empty'>.count"
+ },
+ "UI-06": {
+  "test": "testing/test_code/ui/test_ui_browser.py::test_UI06_loading_indicator",
+  "indicator_seen": true,
+  "indicator_text": "  \nJe recherche les véhicules correspondants…",
+  "gone_after": true,
+  "screenshot": "screenshots/ui/UI-06_loading_before.png",
+  "outcome": "passed"
+ },
+ "UI-07": {
+  "test": "testing/test_code/ui/test_ui_browser.py::test_UI07_pagination_show_more",
+  "before": 6,
+  "label": "Afficher 6 voitures de plus (40 restantes)",
+  "after": 12,
+  "screenshot": "screenshots/ui/UI-07_before.png",
+  "outcome": "passed"
+ },
+ "UI-08": {
+  "test": "testing/test_code/ui/test_ui_browser.py::test_UI08_detail_sheet_open_close",
+  "first_card": "AM-0028",
+  "detail_name": "Toyota Yaris",
+  "reference_shown": true,
+  "messages_open": 4,
+  "messages_after_close": 2,
+  "screenshot": "screenshots/ui/UI-08_detail_before.png",
+  "outcome": "passed"
+ },
+ "UI-09": {
+  "test": "testing/test_code/ui/test_ui_browser.py::test_UI09_new_conversation_reset",
+  "outcome": "failed",
+  "error": "Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for get_by_role(\"button\", name=\"Nouvelle conversation\").first\n    - locator resolved to <button aria-label=\"\" kind=\"secondary\" data-testid=\"stBaseButton-secondary\" class=\"st-emotion-cache-1opbsaq e7msn5c2\">…</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - element is outside of the viewport\n    - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - element is outside of the viewport\n    - retrying click action\n      - waiting 100ms\n    57 × waiting for element to be visible, enabled and stable\n      "
+ },
+ "UI-10": {
+  "test": "testing/test_code/ui/test_ui_browser.py::test_UI10_multiple_searches_and_scroll",
+  "messages": 12,
+  "last_user_in_viewport": true,
+  "last_user_y": 0.34375,
+  "chips": [
+   "Renault",
+   "Renault",
+   "Diesel",
+   "Diesel",
+   "Budget ≤ 45 000 DT",
+   "Budget ≤ 45 000 DT"
+  ],
+  "exceptions": 0,
+  "screenshot": "screenshots/ui/UI-10_before.png",
+  "outcome": "passed"
+ },
+ "UI-11": {
+  "test": "testing/test_code/ui/test_ui_browser.py::test_UI11_responsive_mobile",
+  "horizontal_overflow_px": 0,
+  "card_width": 238,
+  "input_visible": true,
+  "screenshot": "screenshots/ui/UI-11_mobile_welcome_before.png",
+  "screenshot_results": "screenshots/ui/UI-11_mobile_results_before.png",
+  "outcome": "passed"
+ },
+ "UI-12": {
+  "test": "testing/test_code/ui/test_ui_browser.py::test_UI12_no_broken_images_or_errors",
+  "broken_images": [],
+  "card_illustrations": 6,
+  "cards": 6,
+  "exceptions": 0,
+  "console_errors": [],
+  "outcome": "passed"
+ },
+ "UT-01": {
+  "test": "testing/test_code/unit/test_unit_core.py::test_UT01_extract_city",
+  "input": "Je cherche une voiture à Tunis",
+  "extracted": {
+   "ville": "Tunis"
+  },
+  "outcome": "passed"
+ },
+ "UT-02": {
+  "test": "testing/test_code/unit/test_unit_core.py::test_UT02_extract_fuel_and_synonyms",
+  "extracted": {
+   "Je veux une voiture diesel": "Diesel",
+   "voiture gasoil": "Diesel",
+   "une voiture au gazole": "Diesel",
+   "voiture essence": "Essence",
+   "voiture électrique": "Électrique",
+   "voiture hybride": "Hybride"
+  },
+  "outcome": "passed"
+ },
+ "UT-03": {
+  "test": "testing/test_code/unit/test_unit_core.py::test_UT03_extract_max_price_strict",
+  "input": "moins de 40000 DT",
+  "extracted": {
+   "prix_max": 40000
+  },
+  "car_at_40000_kept": true,
+  "outcome": "failed",
+  "error": "« moins de 40000 » doit exclure une voiture à 40 000 DT\nassert ['T', 'U'] == ['U']\n  \n  At index 0 diff: 'T' != 'U'\n  Left contains one more item: 'U'\n  Use -v to get more diff"
+ },
+ "UT-04": {
+  "test": "testing/test_code/unit/test_unit_core.py::test_UT04_extract_max_mileage",
+  "input": "moins de 100000 km",
+  "extracted": {
+   "kilometrage_max": 100000
+  },
+  "kept": [
+   "T",
+   "U"
+  ],
+  "outcome": "failed",
+  "error": "assert ['T', 'U'] == ['U']\n  \n  At index 0 diff: 'T' != 'U'\n  Left contains one more item: 'U'\n  Use -v to get more diff"
+ },
+ "UT-05": {
+  "test": "testing/test_code/unit/test_unit_core.py::test_UT05_extract_brand",
+  "extracted": {
+   "Je cherche une Peugeot": "Peugeot",
+   "une vw": "Volkswagen",
+   "Citroen": "Citroën",
+   "mercedes-benz": "Mercedes"
+  },
+  "outcome": "passed"
+ },
+ "UT-06": {
+  "test": "testing/test_code/unit/test_unit_core.py::test_UT06_extract_model_not_year",
+  "clio": {
+   "marque": "Renault",
+   "modele": "Clio"
+  },
+  "peugeot_2008": {
+   "marque": "Peugeot",
+   "modele": "2008"
+  },
+  "annee_2018": {
+   "annee_min": 2018,
+   "annee_max": 2018
+  },
+  "outcome": "passed"
+ },
+ "UT-07": {
+  "test": "testing/test_code/unit/test_unit_core.py::test_UT07_extract_min_price",
+  "input": "plus de 30000 DT",
+  "extracted": {},
+  "warnings": [
+   "Je ne gère que les maximums de prix (« 30000 DT » ignoré). Exemple : moins de 40 000 DT."
+  ],
+  "outcome": "failed",
+  "error": "assert None == 30000\n +  where None = <built-in method get of dict object at 0x00000297080AE400>('prix_min')\n +    where <built-in method get of dict object at 0x00000297080AE400> = {}.get\n +      where {} = ParseResult(criteria={}, removed=[], warnings=['Je ne gère que les maximums de prix (« 30000 DT » ignoré). Exemple : m...search=False, follow_up=False, help=False, unsupported=None, car_word=False, vague=False, removed_values={}, sort=None).criteria"
+ },
+ "UT-08": {
+  "test": "testing/test_code/unit/test_unit_core.py::test_UT08_numeric_formats",
+  "extracted": {
+   "moins de 40000 DT": 40000,
+   "moins de 40 000 DT": 40000,
+   "moins de 40k DT": 40000,
+   "moins de 40.000 DT": 40000,
+   "moins de 40 000 dinars": 40000,
+   "budget max 40k": 40000
+  },
+  "outcome": "passed"
+ },
+ "UT-09": {
+  "test": "testing/test_code/unit/test_unit_core.py::test_UT09_normalization_case_accents",
+  "extracted": {
+   "voiture à GABÈS": "Gabès",
+   "voiture a gabes": "Gabès",
+   "Voiture à Gabès": "Gabès"
+  },
+  "normalized": "electrique a gabes",
+  "outcome": "passed"
+ },
+ "UT-10": {
+  "test": "testing/test_code/unit/test_unit_core.py::test_UT10_inclusive_maximum_phrasings",
+  "extracted": {
+   "maximum 40000 DT": 40000,
+   "jusqu'à 40000 DT": 40000,
+   "au plus 40000 DT": 40000,
+   "pas plus de 40000 DT": null,
+   "budget 40000 DT": 40000,
+   "prix inférieur ou égal à 40000 DT": 40000
+  },
+  "car_at_40000_kept": {
+   "maximum 40000 DT": true,
+   "jusqu'à 40000 DT": true,
+   "au plus 40000 DT": true,
+   "pas plus de 40000 DT": null,
+   "budget 40000 DT": true,
+   "prix inférieur ou égal à 40000 DT": true
+  },
+  "outcome": "failed",
+  "error": "{'au plus 40000 DT': 40000, 'budget 40000 DT': 40000, \"jusqu'à 40000 DT\": 40000, 'maximum 40000 DT': 40000, ...}\nassert False\n +  where False = all(<generator object test_UT10_inclusive_maximum_phrasings.<locals>.<genexpr> at 0x000002970959FAC0>)"
+ },
+ "UT-11": {
+  "test": "testing/test_code/unit/test_unit_core.py::test_UT11_filter_function_boundaries",
+  "results": {
+   "le_40000": [
+    "A",
+    "B"
+   ],
+   "tunis": [
+    "A",
+    "B"
+   ],
+   "liste_villes": [
+    "A",
+    "B",
+    "C"
+   ],
+   "vide": [
+    "A",
+    "B",
+    "C"
+   ],
+   "none": [
+    "A",
+    "B",
+    "C"
+   ]
+  },
+  "outcome": "passed"
+ },
+ "UT-12": {
+  "test": "testing/test_code/unit/test_unit_core.py::test_UT12_sorting_logic",
+  "first_last": {
+   "Prix croissant": [
+    "AM-0103",
+    "AM-0067"
+   ],
+   "Prix décroissant": [
+    "AM-0067",
+    "AM-0103"
+   ],
+   "Kilométrage croissant": [
+    "AM-0033",
+    "AM-0153"
+   ],
+   "Année la plus récente": [
+    "AM-0030",
+    "AM-0153"
+   ]
+  },
+  "outcome": "passed"
+ },
+ "UT-13": {
+  "test": "testing/test_code/unit/test_unit_core.py::test_UT13_dataset_validation",
+  "real_dataset_errors": [],
+  "corrupted_errors": [
+   "Identifiant dupliqué : FIX-004 (2 fois)",
+   "FIX-001 : prix invalide -10",
+   "FIX-002 : champs manquants ['ville']"
+  ],
+  "outcome": "passed"
+ },
+ "UT-14": {
+  "test": "testing/test_code/unit/test_unit_core.py::test_UT14_unknown_criteria_not_invented",
+  "input": "une voiture rouge avec GPS",
+  "extracted": {},
+  "warnings": [
+   "La couleur (« rouge ») n'est pas renseignée dans les annonces : ce critère est ignoré.",
+   "« GPS » n'est pas renseigné dans la base : ce critère est ignoré."
+  ],
+  "outcome": "passed"
+ }
+}

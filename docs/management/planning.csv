@@ -1,0 +1,31 @@
+ID;Tâche;Lot WBS;Responsable;Début (min);Fin (min);Durée (min);Prédécesseurs;Livrable;Travail ajouté par les exigences enrichies
+P01;Lancement et cadrage du besoin (lecture des exigences, périmètre MoSCoW);1.1;Tous (M1 M2 M3 M4);0;10;10;—;Périmètre validé;Non
+P02;WBS, backlog et affectations;1.2;M1;10;22;12;P01;project_report.md §WBS, backlog.csv;Oui (lots données, UI, chatbot ajoutés)
+D01;Référentiel catalogue : marques, modèles, villes, carburants;2.1;M2;10;20;10;P01;catalog.py;Oui
+Q01;Plan de test, 5 scénarios obligatoires et jeu de test fixe;4.1;M4;10;30;20;P01;test_plan.csv, test_fixtures.json;Oui (fixtures déterministes)
+U01;Maquette UI et choix visuels;3.1;M3;10;25;15;P01;ui_design_notes.md;Oui
+P03;Planning et diagramme de Gantt;1.3;M1;22;30;8;P02;planning.csv, gantt.md;Non
+D02;Générateur reproductible (graine, 200 annonces, distributions cohérentes);2.2;M2;20;38;18;D01;generate_cars.py, cars.json;Oui
+U02;Structure Streamlit : en-tête, héros de recherche, indicateurs;3.2;M3;25;45;20;U01;app.py, ui.py;Oui
+P04;Point d'étape et arbitrages de périmètre;1.4;M1;30;40;10;P03;Compte rendu (rapport §Suivi);Non
+Q02;Tests automatisés des 5 scénarios écrits AVANT le filtrage;4.2;M4;30;45;15;Q01;test_chatbot.py (T01–T05);Non
+D03;Injection des fixtures, validation du jeu de données et résumé statistique;2.3;M2;38;46;8;D02, Q01;validation.py, data_summary.md;Oui
+P05;Rédaction du README;5.1;M1;40;55;15;P04;README.md;Non (mis à jour)
+D04;Module de filtrage et de tri;2.4;M2;46;56;10;Q02, D03;search.py;Non (tri ajouté)
+Q03;Écriture des tests du jeu de données (validation, reproductibilité, plausibilité) d'après le catalogue — exécution en Q05;4.3;M4;45;58;13;D01, Q01;test_data_validation.py;Oui
+U03;Cartes véhicules, puces de critères, état vide;3.3;M3;45;65;20;U02, D01;ui.py;Oui
+P06;Rédaction du rapport de projet;5.2;M1;55;85;30;P05;project_report.md;Non (mis à jour)
+D05;Analyseur de langage par règles (ville, carburant, marque, modèle, prix, km, année);2.5;M2;56;78;22;D04;chatbot.py (parse_message);Oui (expressions étendues)
+Q04;Tests de compréhension et multi-tours (écrits avant/pendant D05–D06);4.4;M4;58;80;22;Q02;test_chatbot.py;Oui
+U04;Interface de chat et état de session;3.4;M3;65;82;17;U03;app.py;Oui
+D06;Multi-tours, intentions, réinitialisation, ambiguïtés;2.6;M2;78;98;20;D05;chatbot.py (process_message);Oui
+Q06;Vérification des prompts de démonstration sur cars.json;4.6;M4;80;98;18;D03, Q04;test_data_validation.py (prompts);Oui
+U05;Barre latérale : filtres manuels synchronisés, historique, statistiques, tri;3.5;M3;82;98;16;U04;app.py;Oui
+P07;Mise à jour planning, tests et rapport final;5.3;M1;85;110;25;P06;planning.csv, gantt.md, project_report.md;Oui
+D07;Intégration chatbot ↔ interface et corrections;6.1;M2 + M3;98;110;12;D06, U05;Application intégrée;Non
+Q05;Exécution de toutes les suites et consignation des résultats;4.5;M4;98;110;12;D06, Q04, Q06;test_results.csv;Non
+P08;Captures d'écran et contrôle des livrables;5.4;M1;110;115;5;P07, D07;screenshots/;Oui
+D08;Régénération finale de cars.json et data_summary.md;2.7;M2;110;115;5;D07;cars.json, data_summary.md;Oui
+U06;Finitions visuelles et affichage mobile;3.6;M3;110;115;5;D07;ui.py;Oui
+Q07;Tests de non-régression après intégration;4.7;M4;110;115;5;D07, Q05;test_results.csv;Non
+P09;Répétition de la démonstration orale;7.1;Tous (M1 M2 M3 M4);115;120;5;P08, D08, U06, Q07;Scénario de démo;Non

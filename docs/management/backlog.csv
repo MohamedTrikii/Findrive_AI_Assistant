@@ -1,0 +1,29 @@
+ID;Récit utilisateur;Priorité (MoSCoW);Estimation (min);Responsable;Tâches du planning;Critère d'acceptation;Nouveau
+US01;En tant qu'acheteur, je décris la voiture en français et j'obtiens les annonces correspondantes;Must;32;M2;D04, D05;Les 5 scénarios T01–T05 passent;Non
+US02;En tant qu'acheteur, je combine ville, carburant, marque, modèle, prix, kilométrage et année;Must;22;M2;D05;T04, T06–T12 passent;Oui (modèle, année, catégorie, boîte)
+US03;En tant qu'acheteur, j'affine ma recherche au fil de la conversation;Must;20;M2;D06;T14–T16 passent;Oui
+US04;En tant qu'acheteur, je repars de zéro avec « nouvelle recherche »;Must;5;M2;D06;T17 passe;Oui
+US05;En tant qu'acheteur, je suis prévenu quand une demande est ambiguë ou non gérée;Must;8;M2;D06;T13, T18, T20 passent;Oui
+US06;En tant qu'acheteur, je vois les critères reconnus sous forme de puces;Must;10;M3;U03;Seuls les critères extraits sont affichés;Oui
+US07;En tant qu'acheteur, je consulte les résultats sous forme de cartes lisibles;Must;10;M3;U03;Marque, modèle, année, ville, carburant, prix, km, boîte, catégorie, état, référence visibles;Oui
+US08;En tant qu'acheteur, je vois un état vide clair quand rien ne correspond;Must;5;M3;U03;Message + conseils · aucun véhicule non conforme;Oui
+US09;En tant qu'acheteur, je dialogue dans une interface de chat qui garde l'historique;Must;17;M3;U04;U01 passe · historique conservé entre clics;Oui
+US10;En tant que présentateur, je dispose d'une interface moderne et d'exemples cliquables;Should;35;M3;U01, U02;Héros, exemples, indicateurs réels;Oui
+US11;En tant qu'acheteur, je trie les résultats (prix, kilométrage, année);Should;3;M2;D04;T21 passe;Oui
+US12;En tant qu'acheteur, j'utilise des filtres manuels sans conflit avec le chat;Could;10;M3;U05;U02 passe;Oui
+US13;En tant qu'acheteur, je vois des suggestions pour élargir une recherche vide;Could;4;M3;U05;T22 passe · suggestions jamais appliquées seules;Oui
+US14;En tant qu'acheteur, je retrouve l'historique de mes recherches et les statistiques de la base;Could;2;M3;U05;Sections dans la barre latérale;Oui
+US15;En tant qu'équipe, nous disposons d'au moins 100 annonces fictives reproductibles;Must;36;M2;D01, D02, D08;D01 passe · 200 annonces;Oui
+US16;En tant qu'équipe, nous validons la base et publions un résumé;Must;8;M2;D03;D02–D04 passent · data_summary.md;Oui
+US17;En tant que testeur, je dispose de données de test fixes et de tests automatisés;Must;70;M4;Q01, Q02, Q03, Q04, Q06;Tous les tests du plan sont automatisés;Oui (fixtures, tests données)
+US18;En tant que testeur, je consigne les résultats réels;Must;17;M4;Q05, Q07;test_results.csv généré depuis l'exécution;Non
+US19;En tant qu'enseignant, je lis un dossier de gestion de projet complet;Must;105;M1;P02–P08;WBS, backlog, planning 120 min, Gantt, rapport, README;Oui (mises à jour)
+US20;Itération 2 — En tant qu'acheteur, j'écris la suite de ma recherche dans un vrai champ de conversation et je vois un aperçu des résultats dans la réponse;Should;20;M3;I2-U1;U04 passe;Oui (itération 2)
+US21;Itération 2 — En tant qu'acheteur, j'affine en un clic grâce à des réponses rapides calculées sur les données;Should;20;M2 + M3;I2-D1, I2-U2;C01, C02, U05 passent;Oui (itération 2)
+US22;Itération 2 — En tant qu'acheteur, je retire un critère d'un clic (puce ✕) et je repère le meilleur prix sur les cartes;Could;15;M3;I2-U2;C03, C04, U05 passent;Oui (itération 2)
+US23;Itération 3 — En tant qu'acheteur, je vois les voitures trouvées directement dans la réponse de l'assistant, sans page de résultats séparée;Must;30;M3;I3-U1, I3-U2;U01, U02 passent;Oui (itération 3)
+US24;Itération 3 — En tant qu'acheteur, mes critères sont conservés d'un message à l'autre et je peux en retirer ou en modifier un en langage naturel;Must;25;M2;I3-D1;R01, R02, R04, R05 passent;Oui (itération 3)
+US25;Itération 3 — En tant qu'acheteur, je peux demander plusieurs marques ou villes et exprimer une préférence d'ordre (moins cher, plus récent);Should;20;M2;I3-D1;R03, R06 passent;Oui (itération 3)
+US26;Itération 3 — En tant qu'acheteur, j'ouvre la fiche détaillée d'une voiture dans la conversation et je la compare aux autres résultats;Should;15;M2 + M3;I3-D2, I3-U2;R09, U05 passent;Oui (itération 3)
+US27;Itération 3 — En tant qu'acheteur, je démarre depuis un écran d'accueil avec des suggestions cliquables;Should;10;M3;I3-U1;U01 passe;Oui (itération 3)
+US28;Itération 3 — En tant qu'acheteur, quand rien ne correspond, l'assistant me propose des pistes cliquables qui donnent des résultats;Must;10;M2 + M3;I3-D2, I3-U2;T22, U07 passent;Oui (itération 3)
