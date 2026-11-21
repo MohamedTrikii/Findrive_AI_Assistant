@@ -48,8 +48,15 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
-      - run: pip install -r requirements-dev.txt
-      - name: Campagne QA (unitaires, intégration, cas limites, régression)
+      - run: pip install -r requirements-dev.txt playwright
+      - name: Campagne QA complète (unitaires, intégration, cas limites, régression, navigateur)
         env:
           TEST_PHASE: ci
-        run: pytest qa/test_code --ignore=qa/test_code/ui -q
+        run: pytest qa/test_code -q
+      - name: Captures d'écran de la campagne
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-screenshots
+          path: qa/screenshots/
+          retention-days: 14

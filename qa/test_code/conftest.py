@@ -190,7 +190,8 @@ def app_server():
 
 @pytest.fixture(scope="session")
 def browser():
-    from playwright.sync_api import sync_playwright
+    sync_api = pytest.importorskip("playwright.sync_api", reason="Playwright non installé (pip install playwright)")
+    sync_playwright = sync_api.sync_playwright
     with sync_playwright() as p:
         b = None
         for channel in ("chrome", "msedge"):
