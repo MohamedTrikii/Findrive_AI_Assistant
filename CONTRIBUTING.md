@@ -5,8 +5,8 @@ Merci de votre intérêt pour le projet ! Ce guide décrit comment installer l'e
 ## Installer l'environnement
 
 ```bash
-git clone https://github.com/MohamedTrikii/AutoMind_AI_Assistant.git
-cd AutoMind_AI_Assistant
+git clone https://github.com/MohamedTrikii/Findrive_AI_Assistant.git
+cd Findrive_AI_Assistant
 python -m venv .venv && source .venv/bin/activate   # Windows : .venv\Scripts\activate
 pip install -r requirements-dev.txt
 streamlit run app.py
@@ -62,4 +62,4 @@ pytest qa/test_code --ignore=qa/test_code/ui    # campagne QA hors navigateur
 
 ## Signaler un bug ou proposer une idée
 
-Utilisez les [modèles d'issue](https://github.com/MohamedTrikii/AutoMind_AI_Assistant/issues/new/choose). Pour une faille de sécurité, suivez plutôt [SECURITY.md](SECURITY.md).
+Utilisez les [modèles d'issue](https://github.com/MohamedTrikii/Findrive_AI_Assistant/issues/new/choose). Pour une faille de sécurité, suivez plutôt [SECURITY.md](SECURITY.md).

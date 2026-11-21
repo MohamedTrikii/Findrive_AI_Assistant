@@ -10,7 +10,7 @@
 ## Signaler une vulnérabilité
 
 Merci de **ne pas ouvrir d'issue publique** pour une faille de sécurité.
-Utilisez le [signalement privé de GitHub](https://github.com/MohamedTrikii/AutoMind_AI_Assistant/security/advisories/new) en décrivant le problème, les étapes pour le reproduire et son impact potentiel.
+Utilisez le [signalement privé de GitHub](https://github.com/MohamedTrikii/Findrive_AI_Assistant/security/advisories/new) en décrivant le problème, les étapes pour le reproduire et son impact potentiel.
 
 Un premier retour est donné sous 7 jours.
 

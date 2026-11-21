@@ -20,7 +20,7 @@ dev = ["pytest>=8.0", "pytest-cov>=5.0", "ruff>=0.6"]
 e2e = ["playwright>=1.45"]
 
 [project.urls]
-Repository = "https://github.com/MohamedTrikii/AutoMind_AI_Assistant"
+Repository = "https://github.com/MohamedTrikii/Findrive_AI_Assistant"
 
 [tool.setuptools]
 packages = ["findrive"]
