@@ -1,11 +1,11 @@
 <div align="center">
 
-<img src="docs/images/findrive_banner.png" alt="Findrive Assistant" width="640">
+<img src="docs/images/findrive_banner.png" alt="Findrive Assistant — Find your car. Find your drive." width="720">
 
 # Findrive Assistant
 
 **Assistant conversationnel de recherche de voitures d'occasion, en français.**
-*Votre prochaine voiture, trouvée simplement.*
+*Find your car. Find your drive. — Votre prochaine voiture, trouvée simplement.*
 
 [![CI](https://github.com/MohamedTrikii/AutoMind_AI_Assistant/actions/workflows/ci.yml/badge.svg)](https://github.com/MohamedTrikii/AutoMind_AI_Assistant/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.10%20|%203.12%20|%203.13-3776AB?logo=python&logoColor=white)
@@ -13,7 +13,10 @@
 ![Tests](https://img.shields.io/badge/tests-250%2B-success)
 ![Coverage](https://img.shields.io/badge/coverage-88%25-brightgreen)
 [![Ruff](https://img.shields.io/badge/lint-ruff-D7FF64?logo=ruff&logoColor=black)](https://docs.astral.sh/ruff/)
+![Version](https://img.shields.io/badge/version-1.1.0-2563eb)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+[Démarrage rapide](#démarrage-rapide) · [Fonctionnalités](#fonctionnalités) · [Architecture](#architecture) · [Contribuer](CONTRIBUTING.md)
 
 ![Résultats affichés dans la conversation](docs/screenshots/04_resultats_dans_le_chat.png)
 
@@ -32,6 +35,8 @@
 - [Structure du dépôt](#structure-du-dépôt)
 - [Gestion de projet](#gestion-de-projet)
 - [Captures d'écran](#captures-décran)
+- [Feuille de route](#feuille-de-route)
+- [Contribuer](#contribuer)
 - [Licence](#licence)
 
 ## Présentation
@@ -195,22 +200,24 @@ ruff check .                                    # lint
 ```
 AutoMind_AI_Assistant/
 ├── app.py                  # Point d'entrée Streamlit : la page de conversation
-├── findrive/               # Package applicatif
+├── findrive/               # Package applicatif (indépendant de Streamlit, sauf ui.py)
 │   ├── chatbot.py          #   analyse par règles, intentions, dialogue multi-tours
 │   ├── search.py           #   chargement, filtrage, tri, statistiques, suggestions
 │   ├── catalog.py          #   référentiel : marques, modèles, villes, carburants
 │   ├── ui.py               #   CSS et composants HTML (cartes, bulles, fiche détaillée)
 │   ├── generate_cars.py    #   génération reproductible du jeu de données (CLI)
-│   └── validation.py       #   contrôles de cohérence et résumé Markdown
+│   ├── validation.py       #   contrôles de cohérence et résumé Markdown
+│   └── assets/             #   icône de l'application
 ├── data/                   # cars.json (200 annonces fictives) · test_fixtures.json
 ├── tests/                  # Suite de tests principale (pytest)
 ├── qa/                     # Campagne QA : code de test, résultats, captures avant / après
-├── docs/                   # Gestion de projet, rapports de test, notes UI, captures
+├── docs/                   # Gestion de projet, rapports de test, notes UI, captures, logo
 ├── scripts/                # Lanceurs Windows / macOS / Linux
-├── .github/workflows/      # Intégration continue
+├── .github/                # CI, Dependabot, modèles d'issue et de Pull Request
 ├── .streamlit/config.toml  # Thème
 ├── Dockerfile
-└── pyproject.toml          # Métadonnées, configuration pytest / coverage / ruff
+├── pyproject.toml          # Métadonnées, configuration pytest / coverage / ruff
+├── CHANGELOG.md · CONTRIBUTING.md · SECURITY.md · LICENSE
 ```
 
 ## Gestion de projet
@@ -235,6 +242,20 @@ Le projet a été mené avec un dossier de pilotage complet :
 D'autres captures sont dans [`docs/screenshots/`](docs/screenshots/).
 
 > **Données** : les 200 annonces sont **synthétiques et fictives** ; les prix ne sont pas des cotes du marché.
+
+## Feuille de route
+
+Les limites connues sont documentées par des tests `xfail` stricts dans [`tests/test_risques.py`](tests/test_risques.py) : ils passeront le jour où la limite sera levée.
+
+- [ ] Négation : « pas diesel », « à part le diesel »
+- [ ] Approximations : « autour de 40 000 DT », « environ 100 000 km » interprétés comme un intervalle
+- [ ] Favoris et comparaison côte à côte de plusieurs annonces
+- [ ] Export des résultats (CSV / PDF)
+- [ ] Déploiement public sur Streamlit Community Cloud
+
+## Contribuer
+
+Les contributions sont les bienvenues : lisez le [guide de contribution](CONTRIBUTING.md) (workflow Git, convention de commits, vérifications avant une Pull Request). Les bugs et idées passent par les [modèles d'issue](https://github.com/MohamedTrikii/AutoMind_AI_Assistant/issues/new/choose) ; les failles de sécurité, par [SECURITY.md](SECURITY.md).
 
 ## Licence
 

@@ -1,6 +1,6 @@
 [project]
 name = "findrive-assistant"
-version = "1.0.0"
+version = "1.1.0"
 description = "Assistant conversationnel de recherche de voitures d'occasion (Streamlit, analyse par règles, hors ligne)."
 readme = "README.md"
 license = { text = "MIT" }
