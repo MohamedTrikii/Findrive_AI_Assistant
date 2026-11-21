@@ -55,7 +55,7 @@ jobs:
         run: pytest qa/test_code -q
       - name: Captures d'écran de la campagne
         if: always()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: qa-screenshots
           path: qa/screenshots/
