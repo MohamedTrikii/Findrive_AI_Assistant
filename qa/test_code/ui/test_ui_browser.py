@@ -29,7 +29,8 @@ def test_UI01_launch_and_welcome_screen(page, evidence):
                     console_errors=page.console_errors, screenshot=path)
     assert "AutoMind" in title
     assert welcome.startswith("Votre prochaine voiture")
-    assert "200 annonces" in meta and starters == 4 and exc == 0
+    # innerText applique le text-transform CSS (majuscules sous Chrome/Linux) : comparaison sans casse
+    assert "200 annonces" in " ".join(meta.lower().split()) and starters == 4 and exc == 0
 
 
 def test_UI02_chat_input_and_user_message(page, evidence):
@@ -159,7 +160,9 @@ def test_UI09_new_conversation_reset(page, evidence):
     send(page, "diesel à Sfax")
     send(page, "moins de 50000 DT")
     n_before = assistant_count(page)
-    page.locator('[class*="st-key-new_conv"] button').first.click()
+    # L'en-tête Streamlit (transparent) peut recouvrir la barre du haut selon la plateforme :
+    # on déclenche l'événement click directement sur le bouton.
+    page.locator('[class*="st-key-new_conv"] button').first.dispatch_event("click")
     time.sleep(0.5)
     wait_idle(page)
     path = shot(page, "ui", "UI-09")
